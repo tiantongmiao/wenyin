@@ -1,0 +1,57 @@
+.container{
+  background-color: rgba(237, 241, 252, 1);
+}
+.my-top{
+  line-height: 72px;
+  text-align: center;
+  background-color: #fff;
+  margin-bottom: 10px;
+}
+.my-data{
+  background-color: #fff;
+  padding: 10px;
+}
+.my-data-name{
+  font-weight: 900;
+  font-style: normal;
+  font-size: 18px;
+}
+.my-data-desc{
+  font-size: 14px;
+  color: #333333;
+  font-weight: 400;
+}
+.avatar-img{
+  width: 57px;
+  height: 57px;
+  padding-right: 10px;
+}
+.my-icon{
+  width: 25px;
+  height: 25px;
+}
+.my-name-img{
+  width: 24px;
+  height: 24px;
+}
+.border-bottom{
+  border-bottom: 1px solid #D7D7D7;
+}
+.my-edit-btn{
+  color: #D7D7D7;
+  font-size: 13px; 
+  border: 1px solid #D7D7D7;
+  border-radius: 50px;
+  padding: 0px 5px;
+}
+.label{
+  font-size: 14px;
+  color: #333333;
+  padding-top: 10px;
+  line-height: 28px;
+}
+.my-icon-title{
+  font-weight: 700;
+  font-size: 16px;
+  margin-top: 1px;
+}

@@ -1,0 +1,41 @@
+.container{
+  position: relative;
+}
+.login-title{
+  text-align: center;
+  margin-top: 25%;
+  margin-bottom: 20px;
+  font-weight: 700;
+  font-style: normal;
+  font-size: 28px;
+  color: #FFFFFF;
+}
+.login-bg{
+  position: fixed;
+  top: 0;
+  z-index: -1;
+  height: 100vh;
+  width: 100vh;
+}
+
+.login-input{
+  margin: 0 15%;
+}
+button[type='default'].login-btn{
+  width: 70%!important;
+  background-color: #0061ac;
+  border-radius: 4px;
+  font-size: 20px;
+  font-weight: 700;
+  color: #FFFFFF;
+}
+
+.login-auto-register{
+  position: fixed;
+  left: 0;
+  right: 0;
+  text-align: center;
+  color: #fff;
+  bottom: 5%;
+  font-size: 12px;
+}

@@ -1,0 +1,24 @@
+<!--index.wxml-->
+<view class="container">
+  <view class="">
+    <mp-searchbar class="search-bar" bindselectresult="selectResult" search="{{search}}"></mp-searchbar>
+    <!-- <input type="text" class="input color-placeholder" placeholder-class="color-placeholder" placeholder="请输入搜索关键字如姓名、拼音、号码等"/> -->
+  </view>
+  <view class="pb48 bg-fff">
+    <scroll-view>
+      <view class="mail-wrapper" wx:for="{{20}}">
+        <image class="mail-avatar" src="../../image/mail/avatar.png"></image>
+        <view class="mail-content">
+          <view class="mail-name">张三</view>
+          <view class="mail-desc">一年级/数学</view>
+          <view class="mail-num">18709998888/025-81340000</view>
+        </view>
+        <image class="mail-phone" src="../../image/mail/phone.png"></image>
+      </view>
+    </scroll-view>
+  </view>
+
+  <!-- <view class="letter-bar">
+    <view wx:for="{{letter}}">{{item}}</view>
+  </view> -->
+</view>

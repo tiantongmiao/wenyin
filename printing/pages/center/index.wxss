@@ -1,0 +1,84 @@
+.container{
+  background-color: rgba(237, 241, 252, 1);
+  height: max-content;
+  padding-bottom: 48px;
+}
+.center-top-bg{
+  width: 100vh;
+}
+.tab-top{
+  line-height: 58px;
+  background-color: #fff;
+  font-weight: bold;
+  font-size: 20px;
+  color: #6B6B6B;
+  text-align: center;
+}
+.tab-title.active{
+  color: #3399FF;
+}
+.top{
+  position: relative;
+  margin-bottom: 60px;
+}
+.center-notice-wrapper{
+  position: absolute;
+  bottom: -30px;
+  left: 20px;
+  right: 20px;
+  background-color: rgba(255, 255, 255, 1);
+  box-sizing: border-box;
+  border-width: 1px;
+  border-style: solid;
+  border-color: rgba(242, 242, 242, 1);
+  border-radius: 45px;
+  -moz-box-shadow: none;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.center-notice-icon{
+  width: 32px;
+  height: 32px;
+  padding: 0 5px;
+  margin-right: 10px;
+}
+.center-notice{
+  flex: 1;
+}
+.center-notice-title{
+  font-weight: 700;
+  font-style: normal;
+  font-size: 16px
+}
+.center-notice-text{
+  font-size: 15px;
+  color: #A1A1A1;
+}
+.center-card{
+  background-color: #fff;
+  border-radius: 4px;
+  margin: 10px;
+  padding: 15px;
+}
+.center-card-title-top{
+  font-weight: 700;
+  font-size: 16px;
+  color: #3399FF;
+  text-align: center;
+  padding-bottom: 10px;
+}
+.center-card-title{
+  font-size: 14px;
+  color: #333333;
+  font-weight: bold;
+  padding-bottom: 10px;
+  text-align: center;
+}
+.center-card-time{
+  font-size: 13px;
+  color: #BCBCBC;
+  text-align: right;
+}

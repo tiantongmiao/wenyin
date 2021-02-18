@@ -1,0 +1,31 @@
+                                                                                          <!--index.wxml-->
+<view class="container">
+  <view class="top">
+    <image class="center-top-bg" src="../../image/home/home-top.jpg"></image>
+    <view class="center-notice-wrapper">
+      <image class="center-notice-icon" src="../../image/home/notice.png"></image>
+      <view class="center-notice">
+        <view class="center-notice-title">我的通知</view>
+        <view class="center-notice-text">2020年9月11日关于学生文案打印</view>
+        <view class="center-notice-text">2020-9-11 09:30:59</view>
+      </view>
+    </view>
+  </view>
+  <view class="p10 card">
+    <view>常用工具</view>
+    <view class="grid-wrapper">
+      <view bindtap="toApply" class="grid-item">
+        <image class="grid-item-icon" src="../../image/home/wenyin.png"></image>
+        <view class="grid-item-text">文印申请</view>
+      </view>
+      <view class="grid-item">
+        <image class="grid-item-icon" src="../../image/home/shenpi.png"></image>
+        <view class="grid-item-text">审批</view>
+      </view>
+      <view class="grid-item">
+        <image class="grid-item-icon" src="../../image/home/tongxunlu.png"></image>
+        <view class="grid-item-text">通讯录</view>
+      </view>
+    </view>
+  </view>
+</view>

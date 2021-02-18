@@ -1,0 +1,105 @@
+<!--index.wxml-->
+<view class="container">
+  <view class="my-top">
+    <view>我的</view>
+  </view>
+  <view class="flex-row my-data mb10">
+    <image class="avatar-img" src="../../image/my/au4pm-ivn88.png"></image>
+    <view class="flex-1 flex-column flex-column-justify-center">
+      <view class="my-data-name">张三</view>
+      <view class="my-data-desc">南京二十九中/一年级/数学</view>
+    </view>
+    <view class="flex-column flex-column-justify-center">
+      <view class="my-edit-btn">编辑资料</view>
+    </view>
+  </view>
+  <!-- 手风琴 -->
+  <view class="bg-fff">
+    <view class="p10">
+      <view data-index="1" bindtap="showAccordion" class="clearfix">
+        <image class="fl my-icon" src="../../image/my/arlpt-1v1hm.png"></image>
+        <view class="pl10 fl my-icon-title">个人信息</view>
+        <image class="arrow fr {{activeAccordion ==1 ? 'arrow-active' : ''}}" src="../../image/my/u625.png"></image>
+      </view>
+      <view class="{{activeAccordion ==1 ? '' : 'none'}}">
+        <view class="clearfix border-bottom label">
+          <view class="fl label">头像</view>
+          <image class="fr my-name-img" src="../../image/my/au4pm-ivn88.png"></image>
+        </view>
+        <view class="clearfix border-bottom label">
+          <view class="fl">昵称</view>
+          <view class="fr">张三</view>
+        </view>
+        <view class="clearfix border-bottom label">
+          <view class="fl">性别</view>
+          <view class="fr">男</view>
+        </view>
+        <view class="clearfix border-bottom label">
+          <view class="fl">身份证号码</view>
+          <view class="fr">未绑定</view>
+        </view>
+        <view class="clearfix border-bottom label">
+          <view class="fl">电话</view>
+          <view class="fr">18700001111</view>
+        </view>
+        <view class="clearfix border-bottom label">
+          <view class="fl">邮箱号</view>
+          <view class="fr">18700001111@126.com</view>
+        </view>
+      </view>
+    </view>
+    <view class="p10">
+      <view data-index="2" bindtap="showAccordion" class="clearfix">
+        <image class="fl my-icon" src="../../image/my/awdnr-81or3.png"></image>
+        <view class="pl10 fl my-icon-title">修改密码</view>
+        <image class="arrow fr {{activeAccordion ==2 ? 'arrow-active' : ''}}" src="../../image/my/u625.png"></image>
+      </view>
+      <mp-dialog title="修改密码" show="{{showPassDialog}}" bindbuttontap="passConfirm" buttons="{{passBtn}}">
+          <view>
+            <view class="flex-row">
+              <view>旧密码</view>
+              <input class="flex-1" type="password" placeholder="请输入旧密码" />
+            </view>
+            <view class="flex-row">
+              <view>新密码</view>
+              <input class="flex-1" type="password" placeholder="请输入新密码格式为8~16位字母，数字组合" />
+            </view>
+            <view class="flex-row">
+              <view>确认新密码</view>
+              <input class="flex-1" type="password" placeholder="请输入新密码格式为8~16位字母，数字组合" />
+            </view>
+            <label class="checkbox" >
+              <checkbox value="show" checked="false"/>显示密码
+            </label>
+          </view>
+      </mp-dialog>
+    </view>
+    <view class="p10">
+      <view data-index="3" bindtap="showAccordion" class="clearfix">
+        <image class="fl my-icon" src="../../image/my/a1mc6-mutu9.png"></image>
+        <view class="pl10 fl my-icon-title">二维码名片</view>
+        <image class="arrow fr {{activeAccordion ==3 ? 'arrow-active' : ''}}" src="../../image/my/u625.png"></image>
+      </view>
+    </view>
+    <view class="p10">
+      <view data-index="4" bindtap="showAccordion" class="clearfix">
+        <image class="fl my-icon" src="../../image/my/aysri-d7a9x.png"></image>
+        <view class="pl10 fl my-icon-title">检查版本更新</view>
+        <image class="arrow fr {{activeAccordion ==4 ? 'arrow-active' : ''}}" src="../../image/my/u625.png"></image>
+      </view>
+      <mp-dialog title="更新提示" show="{{showTipDialog}}" bindbuttontap="tipConfirm" buttons="{{tipBtn}}">
+          <view>当前已为最新版本</view>
+      </mp-dialog>
+    </view>
+    <view class="p10">
+      <view data-index="5" bindtap="showAccordion" class="clearfix">
+        <image class="fl my-icon" src="../../image/my/a44h5-2oktk.png"></image>
+        <view class="pl10 fl my-icon-title">清除缓存</view>
+        <image class="arrow fr {{activeAccordion ==5 ? 'arrow-active' : ''}}" src="../../image/my/u625.png"></image>
+      </view>
+      <mp-dialog title="提示" show="{{showClearDialog}}" bindbuttontap="clearConfirm" buttons="{{clearBtn}}">
+          <view>你确认要清除使用过程的文件、图片等缓存吗？</view>
+      </mp-dialog>
+    </view>
+  </view>
+</view>

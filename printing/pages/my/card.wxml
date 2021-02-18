@@ -1,0 +1,16 @@
+<view class="container">
+    <view class="flex-row card-top">
+        <image bindtap="backtoMy" class="arrow-back" src="../../image/my/u755.png"></image>
+        <view class="flex-1 text-center">二维码名片</view>
+    </view>
+    <view class="flex-row my-data mb10">
+        <image class="avatar-img" src="../../image/my/a1upi-hqtpo.png"></image>
+        <view class="flex-1 flex-column flex-column-justify-center">
+            <view class="my-data-name">张三</view>
+            <view class="my-data-desc">南京二十九中/一年级/数学</view>
+        </view>
+    </view>
+    <view class="text-center">
+        <image class="erweima-img" src="../../image/my/erweima.png"></image>
+    </view>
+</view>

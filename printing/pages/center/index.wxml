@@ -1,0 +1,19 @@
+<!--index.wxml-->
+<view class="container">
+  <scroll-view>
+    <view class="flex-row tab-top">
+      <view bindtap="tabClick" class="flex-1 tab-title {{tabActive=='wait'?'active':''}}" data-name="wait">待处理</view>
+      <view bindtap="tabClick" class="flex-1 tab-title {{tabActive=='done'?'active':''}}" data-name="done">已处理</view>
+    </view>
+    <view class="tab-panel">
+      <view>
+        <mp-searchbar class="search-bar" bindselectresult="selectResult" search="{{search}}"></mp-searchbar>
+      </view>
+      <view wx:for="{{6}}" wx:key="index" class="center-card">
+        <view class="center-card-title-top">文印申请</view>
+        <view class="center-card-title">张三老师关于学生文案的文印申请</view>
+        <view class="center-card-time">接收时间：2020-10-10 08:00:00</view>
+      </view>
+    </view>
+  </scroll-view>
+</view>
