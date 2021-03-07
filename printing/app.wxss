@@ -11,6 +11,9 @@
 .mb10{
   margin-bottom: 10px;
 }
+.mr20{
+  margin-right: 20px;
+}
 .p10{
   padding: 10px;
 }
@@ -171,7 +174,7 @@
   width: inherit;
 }
 .table-form-cell .label-right .weui-input{
-  width: calc(100% - 25px);
+  width: auto;
 } 
 .table-form .weui-cells__group{
   background-color: #fff;
@@ -179,4 +182,15 @@
 .table-form .weui-cells__title {
   padding: 10px;
   color: #333;
+}
+/* 按钮 */
+.btn-blue{
+  background-color: rgba(79, 168, 249, 1);
+  color: #fff;
+  padding: 0 20px!important;
+}
+.btn-yellow{
+  background-color: rgba(255, 153, 51, 1);
+  color: #fff;
+  padding: 0 20px!important;
 }

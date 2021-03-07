@@ -39,7 +39,7 @@
         "minifyWXSS": true
     },
     "compileType": "miniprogram",
-    "libVersion": "2.14.3",
+    "libVersion": "2.15.0",
     "appid": "wxff167321d106d2f2",
     "projectname": "printing",
     "debugOptions": {

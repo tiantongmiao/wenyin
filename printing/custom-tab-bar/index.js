@@ -1,3 +1,4 @@
+const app = getApp();
 Component({
   data: {
     selected: 0,
@@ -29,8 +30,6 @@ Component({
           "text": "我的"
       }
     ]
-  },
-  attached() {
   },
   methods: {
     switchTab(e) {

@@ -10,7 +10,7 @@
       <view class="my-data-desc">南京二十九中/一年级/数学</view>
     </view>
     <view class="flex-column flex-column-justify-center">
-      <view class="my-edit-btn">编辑资料</view>
+      <view bindtap="toEdit" class="my-edit-btn">编辑资料</view>
     </view>
   </view>
   <!-- 手风琴 -->

@@ -18,3 +18,7 @@
     color: #4FA8F9;
     border-bottom: 2px solid #4FA8F9;
 }
+.work-link{
+    width: 20px;
+    height: 20px;
+}

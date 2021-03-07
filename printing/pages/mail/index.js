@@ -2,7 +2,16 @@
 // 获取应用实例
 const app = getApp()
 
-Page({
+Component({
+  pageLifetimes: {
+    show() {
+      if (typeof this.getTabBar === 'function' && this.getTabBar()) {
+        this.getTabBar().setData({
+          selected: 2
+        })
+      }
+    }
+  },
   data: {
     letter: ['A', 'B', 'C', 'D', 'E', 'F',' G', 'H', 'I', 'J', 'K', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'],
     inputShowed: false,

@@ -1,10 +1,6 @@
 <view class="container">
-    <view class="flex-row tab-top">
-      <view bindtap="tabClick" class="flex-1 tab-title {{tabActive=='info'?'active':''}}" data-name="info">基本信息</view>
-      <view bindtap="tabClick" class="flex-1 tab-title {{tabActive=='progress'?'active':''}}" data-name="progress">流程信息</view>
-    </view>
     <view class="m-0-5">
-        <mp-form id="form">
+        <mp-form id="apply">
             <mp-cells class="table-form" title="申请信息">
                 <mp-cell prop="school" title="学校" ext-class="table-form-cell">
                     <view class="label-right">南京六中</view>
@@ -47,5 +43,54 @@
                 </mp-cell>
             </mp-cells>
         </mp-form>
+        <mp-form id="printing">
+            <mp-cells class="table-form" title="文印信息">
+                <mp-cell prop="school" title="材料类型" ext-class="table-form-cell">
+                    <view class="weui-cell weui-cell_select label-right">
+                        <view class="weui-cell__bd">
+                            <picker bindchange="bindCountryChange" value="{{materailIndex}}" range="{{materails}}">
+                                <view class="weui-select weui-select_in-select-after">{{materails[materailIndex]}}</view>
+                            </picker>
+                        </view>
+                    </view>
+                </mp-cell>
+                <mp-cell prop="school" title="文印类型" ext-class="table-form-cell">
+                    <view class="weui-cell weui-cell_select label-right">
+                        <view class="weui-cell__bd">
+                            <picker bindchange="bindCountryChange" value="{{printingIndex}}" range="{{printings}}">
+                                <view class="weui-select weui-select_in-select-after">{{printings[printingIndex]}}</view>
+                            </picker>
+                        </view>
+                    </view>
+                </mp-cell>
+                <mp-cell prop="school" title="页数" ext-class="table-form-cell">
+                    <view class="label-right">12</view>
+                </mp-cell>
+                <mp-cell prop="school" title="份数" ext-class="table-form-cell">
+                    <view class="label-right">45</view>
+                </mp-cell>
+                <mp-cell prop="school" title="印刷数" ext-class="table-form-cell">
+                    <view class="label-right">540</view>
+                </mp-cell>
+                <mp-cell prop="school" title="复印数" ext-class="table-form-cell">
+                    <view class="label-right">12</view>
+                </mp-cell>
+                <mp-cell prop="school" title="版数" ext-class="table-form-cell">
+                    <view class="label-right">12</view>
+                </mp-cell>
+                <mp-cell prop="school" title="纸张数" ext-class="table-form-cell">
+                    <view class="label-right">540</view>
+                </mp-cell>
+                <mp-cell prop="school" title="附件(只能上传一套试卷）" ext-class="table-form-cell">
+                    <view class="label-right">
+                        <image bindtap="onUpLoad" class="work-link" src="../../image/work/link.jpg"></image>
+                    </view>
+                </mp-cell>
+            </mp-cells>
+        </mp-form>
+        <view class="text-center">
+            <button class="mini-btn btn-blue mr20" size="mini">确定</button>
+            <button class="mini-btn btn-yellow" size="mini">关闭</button>
+        </view>
     </view>
 </view>

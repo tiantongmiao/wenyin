@@ -47,3 +47,7 @@
   font-size: 15px;
   color: #A1A1A1;
 }
+.echart_panel{
+  height: 500px;
+  width: 100%;
+}

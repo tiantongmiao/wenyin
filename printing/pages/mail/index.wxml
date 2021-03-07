@@ -6,7 +6,7 @@
   </view>
   <view class="pb48 bg-fff">
     <scroll-view>
-      <view class="mail-wrapper" wx:for="{{20}}">
+      <view class="mail-wrapper" wx:for="{{20}}" wx:key="index">
         <image class="mail-avatar" src="../../image/mail/avatar.png"></image>
         <view class="mail-content">
           <view class="mail-name">张三</view>

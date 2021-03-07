@@ -13,5 +13,5 @@
     </view>
     <button class="mt20 login-btn" type="default" bindtouchend="toIndex">登录</button>
   </view>
-  <view class="login-auto-register">自动注册</view>
+  <view bindtap="toRegister" class="login-auto-register">自动注册</view>
 </view>

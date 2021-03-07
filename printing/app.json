@@ -5,7 +5,9 @@
     "pages/work/index",
     "pages/mail/index",
     "pages/my/index",
+    "pages/login/register",
     "pages/my/card",
+    "pages/my/data",
     "pages/work/apply",
     "pages/work/approval"
   ],
@@ -45,7 +47,7 @@
   "window":{
     "backgroundTextStyle":"light",
     "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "Weixin",
+    "navigationBarTitleText": "智慧文印",
     "navigationBarTextStyle":"black"
   },
   "useExtendedLib": {
