@@ -53,9 +53,6 @@
   "useExtendedLib": {
     "weui": true
   },
-  "usingComponents": {
-    "mp-icon": "weui-miniprogram/icon/icon"
-  },
   "style": "v2",
   "sitemapLocation": "sitemap.json"
 }
