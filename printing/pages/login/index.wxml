@@ -5,11 +5,11 @@
     <view class="login-title">智慧文印平台</view>
     <view class="input-wrapper login-input">
       <view class="icon icon-user input-icon"></view>
-      <input type="text" class="input color-blue-dark" placeholder-class="color-blue-dark" placeholder="请输入手机号码"/>
+      <input type="text" class="input color-blue-dark" bindinput="bindNameInput" placeholder-class="color-blue-dark" placeholder="请输入手机号码"/>
     </view>
     <view class="input-wrapper login-input">
       <view class="icon icon-lock input-icon"></view>
-      <input type="text" password="true" class="input color-blue-dark" placeholder-class="color-blue-dark" placeholder="请输入登录密码"/>
+      <input type="text" password="true" class="input color-blue-dark" bindinput="bindPassWordInput" placeholder-class="color-blue-dark" placeholder="请输入登录密码"/>
     </view>
     <button class="mt20 login-btn" type="default" bindtouchend="toIndex">登录</button>
   </view>
