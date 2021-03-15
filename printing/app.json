@@ -50,9 +50,6 @@
     "navigationBarTitleText": "智慧文印",
     "navigationBarTextStyle":"black"
   },
-  "useExtendedLib": {
-    "weui": true
-  },
   "style": "v2",
   "sitemapLocation": "sitemap.json"
 }
