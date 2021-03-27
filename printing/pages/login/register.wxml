@@ -4,19 +4,19 @@
         <mp-form id="apply" rules="{{rules}}" models="{{formData}}">
             <mp-cell prop="loginName" title="登录账号" ext-class="table-form-cell">
                 <view class="label-right">
-                    <input class="weui-input" bindinput="formInputChange" data-field="loginName" maxlength="8"
+                    <input class="weui-input" bindinput="formInputChange" data-field="loginName"
                         placeholder="最多可以设置8位字符" />
                 </view>
             </mp-cell>
             <mp-cell prop="password" title="密码" ext-class="table-form-cell">
                 <view class="label-right">
-                    <input class="weui-input" bindinput="formInputChange" data-field="password" maxlength="10"
+                    <input class="weui-input" bindinput="formInputChange" data-field="password"
                         minlength="4" password placeholder="由英文字母和数字组成的4-10位字符" />
                 </view>
             </mp-cell>
             <mp-cell prop="userName" title="姓名" ext-class="table-form-cell">
                 <view class="label-right">
-                    <input class="weui-input" bindinput="formInputChange" data-field="userName" maxlength="8"
+                    <input class="weui-input" bindinput="formInputChange" data-field="userName"
                         placeholder="请填写用户名" />
                 </view>
             </mp-cell>
@@ -31,25 +31,25 @@
             </mp-cell>
             <mp-cell prop="email" title="邮箱" ext-class="table-form-cell">
                 <view class="label-right">
-                    <input class="weui-input" bindinput="formInputChange" data-field="email" maxlength="8"
+                    <input class="weui-input" bindinput="formInputChange" data-field="email"
                         placeholder="邮箱账号@域名。如：whj@sina.com.cn" />
                 </view>
             </mp-cell>
             <mp-cell prop="phonenumber" title="手机号" ext-class="table-form-cell">
                 <view class="label-right">
-                    <input class="weui-input" bindinput="formInputChange" data-field="phonenumber" minlength="11"
+                    <input class="weui-input" bindinput="formInputChange" data-field="phonenumber"
                         maxlength="11" placeholder="请填写手机号码" />
                 </view>
             </mp-cell>
             <mp-cell prop="wechat" title="微信号" ext-class="table-form-cell">
                 <view class="label-right">
-                    <input class="weui-input" bindinput="formInputChange" data-field="wechat" minlength="6"
+                    <input class="weui-input" bindinput="formInputChange" data-field="wechat" 
                         maxlength="20" placeholder="请填写微信号码" />
                 </view>
             </mp-cell>
             <mp-cell prop="qq" title="QQ号" ext-class="table-form-cell">
                 <view class="label-right">
-                    <input class="weui-input" bindinput="formInputChange" data-field="qq" minlength="5" maxlength="12"
+                    <input class="weui-input" bindinput="formInputChange" data-field="qq"
                         placeholder="请填写QQ号码" />
                 </view>
             </mp-cell>
@@ -67,7 +67,7 @@
                     <checkbox-group prop="classIds" bindchange="formInputChange" data-field="classIds">
                         <label class="weui-cell weui-check__label" wx:for="{{classes}}" wx:key="index">
                             <view class="weui-cell__hd" wx:if="{{item.deptId}}">
-                                <checkbox value="{{item.deptId}}" checked="{{item.checked}}"/>
+                                <checkbox value="{{item.deptId}}" class="checkbox" checked="{{item.checked}}"/>
                             </view>
                             <view class="weui-cell__bd">{{item.deptName}}</view>
                         </label>

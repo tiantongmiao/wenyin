@@ -1,0 +1,6 @@
+.checkbox{
+    transform: scale(0.8,0.8);
+}
+.table-form-cell .weui-label {
+    width: 60px;
+}

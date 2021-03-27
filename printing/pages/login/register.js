@@ -23,40 +23,61 @@ Page({
         rules: [
             {
                 name: 'loginName',
-                rules: { required: true, message: '必填' },
+                rules: {
+                    required: true, 
+                    rangelength: [2,8], 
+                    message: '登录名必填且大于2个字小于8个字'
+                },
             }, {
                 name: 'password',
-                rules: { required: true, message: '必填' },
-            }, {
+                rules: { 
+                    required: true, 
+                    message: '密码必填',
+                    validator: (rule, value, param, models) => {
+                        if (!/[0-9A-Za-z]{4,10}/.test(value)) {
+                            return "密码由英文字母和数字组成的4-10位字符"
+                        }
+                    }
+                },
+            }, 
+            {
                 name: 'userName',
-                rules: { required: true, message: '必填' },
-            }, {
+                rules: { required: true, message: '姓名必填' },
+            }, 
+            {
                 name: 'sex',
-                rules: { required: true, message: '必填' },
-            }, {
+                rules: { required: true, message: '性别必填' },
+            }, 
+            {
                 name: 'email',
-                rules: { required: true, message: '必填' },
-            }, {
+                rules: { required: true, email:true, message: '请输入有效的电子邮箱' },
+            }, 
+            {
                 name: 'phonenumber',
-                rules: { required: true, message: '必填' },
-            }, {
+                rules: { required: true, mobile: true, message: '必填' },
+            }, 
+            {
                 name: 'wechat',
-                rules: { required: true, message: '必填' },
-            }, {
+                rules: { 
+                    required: true, 
+                    message: '微信号必填',
+                },
+            }, 
+            {
                 name: 'qq',
-                rules: { required: true, message: '必填' },
+                rules: { required: true, message: 'QQ号必填' },
             }, {
                 name: 'deptId',
-                rules: { required: true, message: '必填' },
+                rules: { required: true, message: '学校必填' },
             }, {
                 name: 'classIds',
-                rules: { required: true, message: '必填' },
+                rules: { required: true, message: '部门必填' },
             }, {
                 name: 'subject',
-                rules: { required: true, message: '必填' },
+                rules: { required: true, message: '学科必填' },
             }, {
                 name: 'roleIds',
-                rules: { required: true, message: '必填' },
+                rules: { required: true, message: '角色必填' },
             }
         ]
     },
@@ -122,6 +143,7 @@ Page({
             },
             success(res) {
                 if (res.data.code == 0) {
+                    console.log(res.data)
                     that.setData({
                         classes: res.data.data
                     })
@@ -174,7 +196,7 @@ Page({
     submitForm() {
         let c = this.selectComponent('#apply')
         c.validate((valid, errors) => {
-            console.log('valid', valid, errors)
+            //console.log('valid', valid, errors)
             if (!valid) {
                 const firstError = Object.keys(errors)
                 if (firstError.length) {
@@ -184,8 +206,29 @@ Page({
                 }
             } else {
                 console.log(this.data.formData)
-                wx.showToast({
-                    title: '校验通过'
+                wx.request({
+                    url: path + '/register',
+                    method: 'POST',
+                    header: {
+                        //设置参数内容类型为x-www-form-urlencoded
+                        'content-type': 'application/json',
+                        'Accept': 'application/json'
+                    },
+                    data: this.data.formData,
+                    success(res) {
+                        if (res.data.code == 0) {
+                            // 跳转至首页
+                            wx.reLaunch({
+                                url: '/pages/login/index',
+                            })
+                        } else {
+                            wx.showModal({
+                                title: '注册失败',
+                                content: res.data.msg,
+                                showCancel: false
+                            })
+                        }
+                    }
                 })
             }
         })
