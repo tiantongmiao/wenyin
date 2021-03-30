@@ -9,11 +9,12 @@
       <view>
         <mp-searchbar class="search-bar" bindselectresult="selectResult" search="{{search}}"></mp-searchbar>
       </view>
-      <view wx:for="{{6}}" wx:key="index" class="center-card">
-        <view class="center-card-title-top">文印申请</view>
-        <view class="center-card-title">张三老师关于学生文案的文印申请</view>
-        <view class="center-card-time">接收时间：2020-10-10 08:00:00</view>
+      <view wx:for="{{listData}}" wx:key="index" class="center-card">
+        <view class="center-card-title-top">{{item.actname}}</view>
+        <view class="center-card-title">{{item.dataType}}</view>
+        <view class="center-card-time">接收时间：{{timeUtil.formatTime(item.exp_pickup_date, 'yyyy-MM-dd hh:mm')}}</view>
       </view>
     </view>
   </scroll-view>
 </view>
+<wxs module="timeUtil" src="/utils/timeUtil.wxs" />

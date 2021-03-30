@@ -1,8 +1,6 @@
 // index.js
 // 获取应用实例
-const app = getApp()
-const ip = app.globalData.host
-const path = ip + "/pas/wx"
+import {path, request} from '../../utils/util'
 Component({
   pageLifetimes: {
     show() {
@@ -10,7 +8,7 @@ Component({
         this.getTabBar().setData({
           selected: 0
         })
-        this.getData('/email-check')
+        this.getData('/print/printdata')
       }
     }
   },
@@ -39,33 +37,29 @@ Component({
       console.log('select result', e.detail)
     },
     getData(_url) {
-      wx.request({
+      let that = this
+      request({
         url: path + _url,
         method: 'POST',
-        header: {
-            //设置参数内容类型为x-www-form-urlencoded
-            'content-type': 'application/json',
-            'Accept': 'application/json'
-        },
         data: {
-          // 'order': 'asc',
-          // 'offset': this.data.page  * 20,
-          // 'limit': 20,
-          // 'params[dataType]': -1
-        },
-        success(res) {
-            if (res.data.code == 0) {
-                // 加载数据
-                this.listData = res.data.rows;
-            } else {
-                wx.showModal({
-                    title: '获取数据失败',
-                    content: res.data.msg,
-                    showCancel: false
-                })
-            }
+          'order': 'asc',
+          'offset': this.data.page  * 20,
+          'limit': 20,
+          'params[dataType]': -1
         }
-      })
+      }).then(res => {
+        if (res.code == 0) {
+          that.setData({
+            listData: res.rows
+          })
+        } else {
+          wx.showModal({
+            title: '获取数据失败',
+            content: res.msg,
+            showCancel: false
+          })
+        }
+    })
     },
     tabClick(e) {
       this.setData({
@@ -74,9 +68,9 @@ Component({
       })
       let _url = '';
       if(e.currentTarget.dataset.name == 'wait') {
-        _url = '/printdata'
+        _url = '/print/printdata'
       } else {
-        _url = '/donedata'
+        _url = '/print/donedata'
       }
       this.getData(_url)
     }

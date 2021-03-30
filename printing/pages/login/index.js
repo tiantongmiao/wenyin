@@ -1,8 +1,6 @@
 // index.js
 // 获取应用实例
-const app = getApp()
-const ip = app.globalData.host
-const path = ip + "/pas/wx"
+import { wxPath, request } from '../../utils/util'
 
 Page({
     data: {
@@ -23,8 +21,8 @@ Page({
         })
     },
     toIndex() {
-        wx.request({
-            url: path + '/login',
+        request({
+            url: wxPath + '/login',
             method: 'POST',
             header: {
                 //设置参数内容类型为x-www-form-urlencoded
@@ -34,20 +32,19 @@ Page({
             data: {
                 loginName: this.data.loginName,
                 password: this.data.password
-            },
-            success(res) {
-                if (res.data.code == 0) {
-                    // 跳转至首页
-                    wx.switchTab({
-                        url: '/pages/center/index',
-                    })
-                } else {
-                    wx.showModal({
-                        title: '登录失败',
-                        content: res.data.msg,
-                        showCancel: false
-                    })
-                }
+            }
+        }).then(res => {
+            if (res.code == 0) {
+                // 跳转至首页
+                wx.switchTab({
+                    url: '/pages/center/index',
+                })
+            } else {
+                wx.showModal({
+                    title: '登录失败',
+                    content: res.msg,
+                    showCancel: false
+                })
             }
         })
     },
