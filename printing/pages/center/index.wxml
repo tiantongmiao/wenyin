@@ -6,13 +6,25 @@
       <view bindtap="tabClick" class="flex-1 tab-title {{tabActive=='done'?'active':''}}" data-name="done">已处理</view>
     </view>
     <view class="tab-panel">
-      <view>
-        <mp-searchbar class="search-bar" bindselectresult="selectResult" search="{{search}}"></mp-searchbar>
+      <view class="tab-panel-view" wx:if="{{listData.length > 0}}">
+        <view>
+          <mp-searchbar class="search-bar" bindselectresult="selectResult" search="{{search}}"></mp-searchbar>
+        </view>
+        <view wx:for="{{listData}}" wx:key="index" class="center-card">
+          <view class="center-card-title-top">{{item.actname}}</view>
+          <view class="center-card-title">{{item.dataType}}</view>
+          <view class="center-card-time">接收时间：{{timeUtil.formatTime(item.exp_pickup_date, 'yyyy-MM-dd hh:mm')}}</view>
+        </view>
+        <view>
+          <view class="more" wx:if="{{showMore && !loading}}" bindtap="getMore">加载更多</view>
+          <view class="loading" wx:if="{{loading}}">
+            <mp-loading type="circle"></mp-loading>
+          </view>
+          <view class="nomore" wx:if="{{!showMore && !loading}}">没有更多了</view>
+        </view>
       </view>
-      <view wx:for="{{listData}}" wx:key="index" class="center-card">
-        <view class="center-card-title-top">{{item.actname}}</view>
-        <view class="center-card-title">{{item.dataType}}</view>
-        <view class="center-card-time">接收时间：{{timeUtil.formatTime(item.exp_pickup_date, 'yyyy-MM-dd hh:mm')}}</view>
+      <view wx:else>
+        暂无数据
       </view>
     </view>
   </scroll-view>

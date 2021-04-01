@@ -54,7 +54,8 @@
     "weui": true
   },
   "usingComponents": {
-    "mp-icon": "weui-miniprogram/icon/icon"
+    "mp-icon": "weui-miniprogram/icon/icon",
+    "mp-loading": "weui-miniprogram/loading/loading"
   },
   "style": "v2",
   "sitemapLocation": "sitemap.json"

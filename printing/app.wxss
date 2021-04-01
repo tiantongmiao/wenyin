@@ -194,3 +194,23 @@
   color: #fff;
   padding: 0 20px!important;
 }
+.more{
+  text-align: center;
+  color: #248c5c;
+  font-size: 14px;
+  padding-bottom: 10px;
+  line-height: 30px;
+  height: 30px;
+}
+.nomore,.loading{
+  text-align: center;
+  color: #ccc;
+  font-size: 14px;
+  padding-bottom: 10px;
+  line-height: 30px;
+  height: 30px;
+}
+.loading .weui-loadmore{
+  line-height: 30px;
+  margin: 0;
+}

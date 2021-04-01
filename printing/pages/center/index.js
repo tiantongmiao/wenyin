@@ -8,7 +8,7 @@ Component({
         this.getTabBar().setData({
           selected: 0
         })
-        this.getData('/print/printdata')
+        this.getData()
       }
     }
   },
@@ -16,7 +16,10 @@ Component({
     inputShowed: false,
     inputVal: "",
     tabActive: 'wait',
-    page: 0
+    page: 0,
+    listData: [],
+    loading: false,
+    showMore: true,
   },
   // 事件处理函数
   onLoad() {
@@ -36,22 +39,38 @@ Component({
     selectResult: function (e) {
       console.log('select result', e.detail)
     },
-    getData(_url) {
-      let that = this
+    getData() {
+      let that = this;
+      console.log(that.data.page)
+      let _url = '';
+      that.setData({
+        loading: true
+      })
+      if(that.data.tabActive == 'wait') {
+        _url = '/print/printdata'
+      } else {
+        _url = '/print/donedata'
+      }
       request({
         url: path + _url,
         method: 'POST',
         data: {
           'order': 'asc',
-          'offset': this.data.page  * 20,
+          'offset': that.data.page  * 20,
           'limit': 20,
           'params[dataType]': -1
         }
       }).then(res => {
         if (res.code == 0) {
           that.setData({
-            listData: res.rows
+            listData: [...that.data.listData, ...res.rows],
+            loading: false
           })
+          if(that.data.listData.length >= res.total) {
+            that.setData({
+              showMore: false
+            })
+          }
         } else {
           wx.showModal({
             title: '获取数据失败',
@@ -64,15 +83,18 @@ Component({
     tabClick(e) {
       this.setData({
         tabActive: e.currentTarget.dataset.name,
-        page: 0
+        listData: [],
+        page: 0,
+        showMore: true,
+        loading: false,
       })
-      let _url = '';
-      if(e.currentTarget.dataset.name == 'wait') {
-        _url = '/print/printdata'
-      } else {
-        _url = '/print/donedata'
-      }
-      this.getData(_url)
+      this.getData()
+    },
+    getMore() {
+      this.setData({
+        page: this.data.page + 1
+      });
+      this.getData();
     }
   }
 })

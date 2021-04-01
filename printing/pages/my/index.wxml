@@ -1,8 +1,8 @@
 <!--index.wxml-->
 <view class="container">
-  <view class="my-top">
+  <!-- <view class="my-top">
     <view>我的</view>
-  </view>
+  </view> -->
   <view class="flex-row my-data mb10">
     <image class="avatar-img" src="../../image/my/au4pm-ivn88.png"></image>
     <view class="flex-1 flex-column flex-column-justify-center">
