@@ -1,28 +1,96 @@
+import {wxPath, path, request} from '../../utils/util'
 Page({
     data: {
         tabActive: 'info',
-        departmentIndex: 0,
-        departments: ['请选择','一年级'],
+
+        app: {},
         date: '请选择',
-        materailIndex: 0,
-        materails: ['请选择'],
-        printingIndex: 0,
-        printings: ['请选择'],
+        time: '09:00',
+
+        schoolPrintType: '',
+
+        gradeList: [{deptName: '请选择部门'}],
+        gradeIndex: 0,
+
+        dataTypeList: [],
+        dataTypeIndex: 0,
+
+        printTypeList: [],
+        printTypeIndex: 0,
+
+        formData: {},
+    },
+    onLoad() {
+        this.getData()
+    },
+    getData() {
+        request({
+            url: wxPath + "/print/app-edit-info",
+            method: 'POST',
+            header: {
+                'content-type': 'application/json',
+                'Accept': 'application/json'
+            },
+            data: {}
+        }).then(res => {
+            let {app, gradeList, dataTypeList, printTypeList, schoolPrintType} = res.data
+            console.log(res)
+            app.applicationDate = app.applicationDate || new Date().getTime()
+            this.setData({
+                app: app || this.data.app,
+                gradeList: (gradeList && [{deptName: '请选择部门'}].concat(gradeList)) || this.data.gradeList,
+                dataTypeList: dataTypeList || this.data.dataTypeList,
+                printTypeList: printTypeList || this.data.printTypeList,
+                schoolPrintType: schoolPrintType || this.data.schoolPrintType
+            })
+        })
     },
     tabClick(e) {
         this.setData({
             tabActive: e.currentTarget.dataset.name
         })
     },
-    bindCountryChange(e) {
-        console.log('picker country 发生选择改变，携带值为', e.detail.value);
+    bindGradeChange(e) {
+        let index = e.detail.value;
         this.setData({
-            departmentIndex: e.detail.value
+            gradeIndex: index,
+            [`formData.grade`]: this.data.gradeList[index]
         })
     },
     bindDateChange(e) {
         this.setData({
             date: e.detail.value,
+        })
+    },
+    bindTimeChange(e) {
+        this.setData({
+            time: e.detail.value,
+        })
+    },
+    bindDataTypeChange(e) {
+        let index = e.detail.value;
+        let dataType = this.data.dataTypeList[index].dictValue
+        this.setData({
+            dataTypeIndex: index,
+            [`formData.dataType`]: dataType
+        })
+        request({
+            url: path + '/print/getPrintType',
+            data: {
+                schoolPrintType: this.data.schoolPrintType,
+                dataType: dataType
+            }
+        }).then(res => {
+            this.setData({
+                printTypeList: res || this.data.printTypeList
+            })
+        })
+    },
+    bindPrintTypeChange(e) {
+        let index = e.detail.value;
+        this.setData({
+            printTypeIndex: index,
+            [`formData.printType`]: this.data.printTypeList[index]
         })
     },
     onUpLoad(res) {
