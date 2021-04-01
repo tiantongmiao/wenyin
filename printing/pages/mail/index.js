@@ -1,7 +1,6 @@
 // index.js
 // 获取应用实例
-const app = getApp()
-
+import { path, request } from '../../utils/util'
 Component({
   pageLifetimes: {
     show() {
@@ -9,13 +8,29 @@ Component({
         this.getTabBar().setData({
           selected: 2
         })
+        this.setData({
+          letter: ['A', 'B', 'C', 'D', 'E', 'F',' G', 'H', 'I', 'J', 'K', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'],
+          inputShowed: false,
+          inputVal: "",
+          page: 1,
+          listData: [],
+          loading: false,
+          showMore: true,
+        })
+        this.getUserList()
+      } else {
+        
       }
     }
   },
   data: {
     letter: ['A', 'B', 'C', 'D', 'E', 'F',' G', 'H', 'I', 'J', 'K', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'],
     inputShowed: false,
-    inputVal: ""
+    inputVal: "",
+    page: 1,
+    listData: [],
+    loading: false,
+    showMore: true,
   },
   // 事件处理函数
   onLoad() {
@@ -23,14 +38,58 @@ Component({
       search: this.search.bind(this)
     })
   },
-  search: function (value) {
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-          resolve([{text: '搜索结果', value: 1}, {text: '搜索结果2', value: 2}])
-      }, 200)
-    })
-  },
-  selectResult: function (e) {
-    console.log('select result', e.detail)
-  },
+  methods: {
+    search(value) {
+      return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            resolve([{text: '搜索结果', value: 1}, {text: '搜索结果2', value: 2}])
+        }, 200)
+      })
+    },
+    selectResult(e) {
+      console.log('select result', e.detail)
+    },
+    getUserList() {
+      request({
+          url: path + '/system/user/list',
+          method: 'POST',
+          data: {
+            'pageSize': 20,
+            'pageNum': this.data.page,
+            'orderByColumn': 'createTime',
+            'isAsc': 'desc'
+          }
+        }).then(res => {
+          if (res.code == 0) {
+            this.setData({
+              listData: [...this.data.listData, ...res.rows],
+              loading: false
+            })
+            if(this.data.listData.length >= res.total) {
+              this.setData({
+                showMore: false
+              })
+            }
+          } else {
+            wx.showModal({
+              title: '获取数据失败',
+              content: res.msg,
+              showCancel: false
+            })
+          }
+      })
+    },
+    callNumber(e) {
+      wx.makePhoneCall({
+        phoneNumber: e.currentTarget.dataset['number'],
+        success: (e) => {console.log(e)}
+      })
+    },
+    getMore() {
+      this.setData({
+        page: this.data.page + 1
+      });
+      this.getUserList();
+    }
+  }
 })

@@ -6,19 +6,27 @@
   </view>
   <view class="pb48 bg-fff">
     <scroll-view>
-      <view class="mail-wrapper" wx:for="{{20}}" wx:key="index">
-        <image class="mail-avatar" src="../../image/mail/avatar.png"></image>
-        <view class="mail-content">
-          <view class="mail-name">张三</view>
-          <view class="mail-desc">一年级/数学</view>
-          <view class="mail-num">18709998888/025-81340000</view>
+      <view wx:if="{{listData.length > 0}}">
+        <view class="mail-wrapper" wx:for="{{listData}}" wx:key="index">
+          <image class="mail-avatar" src="../../image/mail/avatar.png"></image>
+          <view class="mail-content">
+            <view class="mail-name">{{item.userName}}</view>
+            <view class="mail-desc">{{item.subject_name}}</view>
+            <view class="mail-num">{{item.phonenumber}}</view>
+          </view>
+          <image class="mail-phone" src="../../image/mail/phone.png" bindtap="callNumber" data-number="{{item.phonenumber}}"></image>
         </view>
-        <image class="mail-phone" src="../../image/mail/phone.png"></image>
+        <view>
+          <view class="more" wx:if="{{showMore && !loading}}" bindtap="getMore">加载更多</view>
+          <view class="loading" wx:if="{{loading}}">
+            <mp-loading type="circle"></mp-loading>
+          </view>
+          <view class="nomore" wx:if="{{!showMore && !loading}}">没有更多了</view>
+        </view>
+      </view>
+      <view wx:else>
+        暂无数据
       </view>
     </scroll-view>
   </view>
-
-  <!-- <view class="letter-bar">
-    <view wx:for="{{letter}}">{{item}}</view>
-  </view> -->
 </view>

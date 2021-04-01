@@ -8,6 +8,15 @@ Component({
         this.getTabBar().setData({
           selected: 0
         })
+        this.setData({
+          inputShowed: false,
+          inputVal: "",
+          tabActive: 'wait',
+          page: 0,
+          listData: [],
+          loading: false,
+          showMore: true,
+        })
         this.getData()
       }
     }
@@ -23,6 +32,7 @@ Component({
   },
   // 事件处理函数
   onLoad() {
+    console.log(11)
     this.setData({
       search: this.search.bind(this)
     })
