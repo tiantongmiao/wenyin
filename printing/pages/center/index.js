@@ -32,7 +32,6 @@ Component({
   },
   // 事件处理函数
   onLoad() {
-    console.log(11)
     this.setData({
       search: this.search.bind(this)
     })
@@ -47,11 +46,10 @@ Component({
       })
     },
     selectResult: function (e) {
-      console.log('select result', e.detail)
+      // console.log('select result', e.detail)
     },
     getData() {
       let that = this;
-      console.log(that.data.page)
       let _url = '';
       that.setData({
         loading: true

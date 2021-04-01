@@ -1,7 +1,7 @@
 const app = getApp();
 Component({
   data: {
-    selected: 0,
+    selected: 1,
     color: "#7A7E83",
     selectedColor: "#3cc51f",
     list: [
@@ -36,9 +36,6 @@ Component({
       const data = e.currentTarget.dataset
       const url = data.path
       wx.switchTab({url})
-      this.setData({
-        selected: data.index
-      })
     }
   }
 })

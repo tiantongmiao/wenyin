@@ -1,7 +1,5 @@
-// 获取应用实例
-const app = getApp()
-const ip = app.globalData.host
-const path = ip + "/pas/wx"
+
+import { wxPath, request } from '../../utils/util'
 
 Page({
     data: {
@@ -104,15 +102,25 @@ Page({
     },
     queryDepts() {
         let that = this
-        wx.request({
-            url: path + '/dept/list',
-            success(res) {
-                if (res.data.code == 0) {
-                    let _depts = [{deptName:'请选择学校'}].concat(res.data.data)
-                    that.setData({
-                        depts: _depts
-                    })
-                }
+        request({
+            url: wxPath + '/dept/list',
+            header: {
+                //设置参数内容类型为x-www-form-urlencoded
+                'content-type': 'application/json',
+                'Accept': 'application/json'
+            },
+        }).then(res => {
+            if (res.code == 0) {
+                let _depts = [{deptName:'请选择学校'}].concat(res.data)
+                that.setData({
+                    depts: _depts
+                })
+            } else {
+                wx.showModal({
+                    title: '获取信息失败',
+                    content: res.msg,
+                    showCancel: false
+                })
             }
         })
     },
@@ -130,10 +138,11 @@ Page({
             return
         }
         let that = this
-        wx.request({
-            url: path + '/dept/classes',
+        request({
+            url: wxPath + '/dept/classes',
             method: 'POST',
             header: {
+                //设置参数内容类型为x-www-form-urlencoded
                 'content-type': 'application/json',
                 'Accept': 'application/json'
             },
@@ -141,27 +150,36 @@ Page({
                 parentId: deptId,
                 typeId: '1'
             },
-            success(res) {
-                if (res.data.code == 0) {
-                    console.log(res.data)
-                    that.setData({
-                        classes: res.data.data
-                    })
-                }
+        }).then(res => {
+            if (res.code == 0) {
+                that.setData({
+                    classes: res.data
+                })
+            } else {
+                wx.showModal({
+                    title: '获取信息失败',
+                    content: res.msg,
+                    showCancel: false
+                })
             }
         })
+        
     },
     querySubjects() {
         let that = this
-        wx.request({
-            url: path + '/dic/data-by-type/subject_type',
-            success(res) {
-                if (res.data.code == 0) {
-                    let _subjects = [{dictLabel: '请选择学科'}].concat(res.data.data)
-                    that.setData({
-                        subjects: _subjects
-                    })
-                }
+        request({
+            url: wxPath + '/dic/data-by-type/subject_type',
+            header: {
+                //设置参数内容类型为x-www-form-urlencoded
+                'content-type': 'application/json',
+                'Accept': 'application/json'
+            },
+        }).then((res) => {
+            if (res.code == 0) {
+                let _subjects = [{dictLabel: '请选择学科'}].concat(res.data)
+                that.setData({
+                    subjects: _subjects
+                })
             }
         })
     },
@@ -174,17 +192,21 @@ Page({
     },
     queryRoles() {
         let that = this
-        wx.request({
-            url: path + '/role/list',
-            success(res) {
-                if (res.data.code == 0) {
-                    let _roles = [{roleName: '请选择角色'}].concat(res.data.data)
+        request({
+            url: wxPath + '/role/list',
+            header: {
+                //设置参数内容类型为x-www-form-urlencoded
+                'content-type': 'application/json',
+                'Accept': 'application/json'
+            },
+        }).then((res) =>{
+                if (res.code == 0) {
+                    let _roles = [{roleName: '请选择角色'}].concat(res.data)
                     that.setData({
                         roles: _roles
                     })
                 }
-            }
-        })
+            })
     },
     bindRoleChange(e) {
         let roleId = this.data.roles[e.detail.value].roleId
@@ -205,9 +227,8 @@ Page({
                     })
                 }
             } else {
-                console.log(this.data.formData)
-                wx.request({
-                    url: path + '/register',
+                request({
+                    url: wxPath + '/register',
                     method: 'POST',
                     header: {
                         //设置参数内容类型为x-www-form-urlencoded
@@ -215,7 +236,7 @@ Page({
                         'Accept': 'application/json'
                     },
                     data: this.data.formData,
-                    success(res) {
+                }).then((res) => {
                         if (res.data.code == 0) {
                             // 跳转至首页
                             wx.reLaunch({
@@ -228,8 +249,7 @@ Page({
                                 showCancel: false
                             })
                         }
-                    }
-                })
+                    })
             }
         })
     },

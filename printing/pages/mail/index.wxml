@@ -1,9 +1,8 @@
 <!--index.wxml-->
 <view class="container">
-  <view class="">
+  <!-- <view class="">
     <mp-searchbar class="search-bar" bindselectresult="selectResult" search="{{search}}"></mp-searchbar>
-    <!-- <input type="text" class="input color-placeholder" placeholder-class="color-placeholder" placeholder="请输入搜索关键字如姓名、拼音、号码等"/> -->
-  </view>
+  </view> -->
   <view class="pb48 bg-fff">
     <scroll-view>
       <view wx:if="{{listData.length > 0}}">

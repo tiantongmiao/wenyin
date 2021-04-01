@@ -92,7 +92,6 @@ Page({
     submitForm() {
         let c = this.selectComponent('#apply')
         c.validate((valid, errors) => {
-            //console.log('valid', valid, errors)
             if (!valid) {
                 const firstError = Object.keys(errors)
                 if (firstError.length) {
@@ -110,7 +109,6 @@ Page({
                     data: this.data.formData
                 }).then(res => {
                     if (res.code == 0) {
-                        console.log(res)
                         // 跳转至首页
                         wx.switchTab({
                             url: '/pages/my/index',

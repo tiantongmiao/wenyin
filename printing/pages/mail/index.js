@@ -1,5 +1,3 @@
-// index.js
-// 获取应用实例
 import { path, request } from '../../utils/util'
 Component({
   pageLifetimes: {
@@ -47,7 +45,7 @@ Component({
       })
     },
     selectResult(e) {
-      console.log('select result', e.detail)
+      // console.log('select result', e.detail)
     },
     getUserList() {
       request({
@@ -82,7 +80,9 @@ Component({
     callNumber(e) {
       wx.makePhoneCall({
         phoneNumber: e.currentTarget.dataset['number'],
-        success: (e) => {console.log(e)}
+        success: (e) => {
+          // console.log(e)
+        }
       })
     },
     getMore() {

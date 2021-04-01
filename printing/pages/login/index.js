@@ -37,7 +37,7 @@ Page({
             if (res.code == 0) {
                 // 跳转至首页
                 wx.switchTab({
-                    url: '/pages/center/index',
+                    url: '/pages/work/index',
                 })
             } else {
                 wx.showModal({

@@ -7,9 +7,9 @@
     </view>
     <view class="tab-panel">
       <view class="tab-panel-view" wx:if="{{listData.length > 0}}">
-        <view>
+        <!-- <view>
           <mp-searchbar class="search-bar" bindselectresult="selectResult" search="{{search}}"></mp-searchbar>
-        </view>
+        </view> -->
         <view wx:for="{{listData}}" wx:key="index" class="center-card">
           <view class="center-card-title-top">{{item.actname}}</view>
           <view class="center-card-title">{{item.dataType}}</view>
