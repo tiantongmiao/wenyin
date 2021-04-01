@@ -4,8 +4,8 @@ import { wxPath, request } from '../../utils/util'
 
 Page({
     data: {
-        loginName: '',
-        password: ''
+        loginName: 'admin',
+        password: '111111'
     },
     // 事件处理函数
     onLoad() {

@@ -28,23 +28,19 @@
         </view>
         <view class="clearfix border-bottom label">
           <view class="fl">昵称</view>
-          <view class="fr">张三</view>
+          <view class="fr">{{formData.userName}}</view>
         </view>
         <view class="clearfix border-bottom label">
           <view class="fl">性别</view>
-          <view class="fr">男</view>
-        </view>
-        <view class="clearfix border-bottom label">
-          <view class="fl">身份证号码</view>
-          <view class="fr">未绑定</view>
+          <view class="fr">{{formData.sex}}</view>
         </view>
         <view class="clearfix border-bottom label">
           <view class="fl">电话</view>
-          <view class="fr">18700001111</view>
+          <view class="fr">{{formData.phonenumber}}</view>
         </view>
         <view class="clearfix border-bottom label">
           <view class="fl">邮箱号</view>
-          <view class="fr">18700001111@126.com</view>
+          <view class="fr">{{formData.email}}</view>
         </view>
       </view>
     </view>
@@ -54,25 +50,6 @@
         <view class="pl10 fl my-icon-title">修改密码</view>
         <image class="arrow fr {{activeAccordion ==2 ? 'arrow-active' : ''}}" src="../../image/my/u625.png"></image>
       </view>
-      <mp-dialog title="修改密码" show="{{showPassDialog}}" bindbuttontap="passConfirm" buttons="{{passBtn}}">
-          <view>
-            <view class="flex-row">
-              <view>旧密码</view>
-              <input class="flex-1" type="password" placeholder="请输入旧密码" />
-            </view>
-            <view class="flex-row">
-              <view>新密码</view>
-              <input class="flex-1" type="password" placeholder="请输入新密码格式为8~16位字母，数字组合" />
-            </view>
-            <view class="flex-row">
-              <view>确认新密码</view>
-              <input class="flex-1" type="password" placeholder="请输入新密码格式为8~16位字母，数字组合" />
-            </view>
-            <label class="checkbox" >
-              <checkbox value="show" checked="false"/>显示密码
-            </label>
-          </view>
-      </mp-dialog>
     </view>
     <view class="p10">
       <view data-index="3" bindtap="showAccordion" class="clearfix">
