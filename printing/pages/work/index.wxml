@@ -28,7 +28,21 @@
       </view>
     </view>
   </view>
-  <view class='echart_panel'>
-    <canvas canvas-id="columnCanvas" class="canvas" bindtouchstart="touchHandler"></canvas>
+  <view class='echart_panel clearfix'>
+    <view class="fl">
+      <picker class="inline-block pl10" mode="date" value="{{startdate}}" bindchange="bindStartDateChange">
+        <view class="picker">
+          {{startdate != '' ? startdate : '请选择'}}
+        </view>
+      </picker>
+      <view class="inline-block pl10">至</view>
+      <picker class="inline-block pl10" mode="date" value="{{enddate}}" bindchange="bindEndDateChange">
+        <view class="picker">
+          {{enddate != '' ? enddate : '请选择'}}
+        </view>
+      </picker>
+    </view>
+    <view class="fr pr10"><mp-icon bindtap="getChartsData" icon="search" color="black" size="{{22}}"></mp-icon></view>
   </view>
+  <canvas canvas-id="columnCanvas" class="canvas"></canvas>
 </view>

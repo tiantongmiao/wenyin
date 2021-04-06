@@ -1,6 +1,6 @@
 /**app.wxss**/
 .container {
-  height: 100vh;
+  /* height: 100vh; */
   /* overflow: hidden; */
   box-sizing: border-box;
 } 
@@ -19,6 +19,9 @@
 }
 .pl10{
   padding-left: 10px;
+}
+.pr10{
+  padding-right: 10px;
 }
 .pb48{
   padding-bottom: 48px;
@@ -213,4 +216,7 @@
 .loading .weui-loadmore{
   line-height: 30px;
   margin: 0;
+}
+.inline-block{
+  display: inline-block;
 }
