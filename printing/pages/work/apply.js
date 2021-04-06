@@ -1,9 +1,10 @@
-import {wxPath, path, request} from '../../utils/util'
+import {wxPath, path, request, upload} from '../../utils/util'
 Page({
     data: {
         tabActive: 'info',
 
         app: {},
+        attach: {},
         date: '请选择',
         time: '09:00',
 
@@ -34,7 +35,6 @@ Page({
             data: {}
         }).then(res => {
             let {app, gradeList, dataTypeList, printTypeList, schoolPrintType} = res.data
-            console.log(res)
             app.applicationDate = app.applicationDate || new Date().getTime()
             this.setData({
                 app: app || this.data.app,
@@ -93,23 +93,49 @@ Page({
             [`formData.printType`]: this.data.printTypeList[index]
         })
     },
+    formInputChange(e) {
+        const { field } = e.currentTarget.dataset
+        this.setData({
+            [`formData.${field}`]: e.detail.value
+        })
+    },
     onUpLoad(res) {
         wx.chooseMessageFile({
+            count: 1,
+            type: 'file',
+            extension: ["doc", "docx", "xls", "xlsx", "pptx","ppt", "pdf"],
             success (res) {
                 console.log(res)
-                const tempFilePaths = res.tempFiles
-                wx.uploadFile({
-                  url: 'https://example.weixin.qq.com/upload', //仅为示例，非真实的接口地址
-                  filePath: tempFilePaths[0],
-                  name: 'file',
-                  formData: {
-                  },
-                  success (res){
-                    const data = res.data
-                    //do something
-                  }
-                })
+                if(res.tempFiles && res.tempFiles.length > 0) {
+                    const tempFilePaths = res.tempFiles
+                    upload({
+                      url: 'http://180.97.195.59:30001/pas/attach/uploadfile', //仅为示例，非真实的接口地址
+                      filePath: tempFilePaths[0].path,
+                      name: 'file_data'
+                    }).then (res => {
+                        console.log(res)
+                        this.setData({
+                            [`attach.attachId`]: attach.attachId
+                        })
+                    }).catch(res => {
+                        console.log(res)
+                    })
+                } else {
+                    
+                }
               }
         })
+    },
+    submitForm(){
+        let c = this.selectComponent('#apply')
+        c.validate((valid, errors) => {
+            console.log('valid', valid, errors)
+            if (!valid) {
+            } else {
+            }
+        })
+    },
+    back() {
+        wx.navigateBack()
     }
 })

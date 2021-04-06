@@ -49,7 +49,7 @@ let request = ({header, method, url, data}) => {
       url: url,
       header: header_,
       method: method ? method : 'GET',
-      data: data,
+      data: data || {},
       success: function (res) {
         if (res.header['Set-Cookie']) {
           setCookies(res.header['Set-Cookie']);
@@ -64,8 +64,38 @@ let request = ({header, method, url, data}) => {
   return promise
 }
 
+let upload = ({url, filePath, name, header, data,}) => {
+  let promise = new Promise((resolve, reject) => {
+    let token = getCookie(tokenKey)
+    let header_ = {}
+    if (token) {
+      header_['Cookie'] = token
+    }
+    header_ = header ? Object.assign(header_, header) : header_
+    wx.uploadFile({
+      url: url,
+      filePath: filePath,
+      header: header_,
+      name: name,
+      formData: data,
+      success: function (res) {
+        if (res.header['Set-Cookie']) {
+          setCookies(res.header['Set-Cookie']);
+        }
+        resolve(JSON.parse(res.data))
+      },
+      error: function (e) {
+        reject(e)
+      }
+    })
+  })
+  return promise
+
+}
+
 module.exports = {
   request,
+  upload,
   wxPath,
   path,
   tokenKey,

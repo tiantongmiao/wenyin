@@ -80,28 +80,32 @@
                     <input class="weui-input" bindinput="formInputChange" data-field="attach.copies"
                         value="{{attach.copies}}" placeholder="份数" />
                 </mp-cell>
-                <mp-cell prop="school" title="印刷数" ext-class="table-form-cell">
-                    <view class="label-right">540</view>
+                <mp-cell prop="printings" title="印刷数" ext-class="table-form-cell">
+                    <input class="weui-input" bindinput="formInputChange" data-field="app.printings"
+                        value="{{app.printings}}" placeholder="印刷数" />
                 </mp-cell>
                 <mp-cell prop="school" title="复印数" ext-class="table-form-cell">
-                    <view class="label-right">12</view>
+                    <input class="weui-input" bindinput="formInputChange" data-field="app.duplicates"
+                        value="{{app.duplicates}}" placeholder="复印数" />
                 </mp-cell>
                 <mp-cell prop="school" title="版数" ext-class="table-form-cell">
-                    <view class="label-right">12</view>
+                    <input class="weui-input" bindinput="formInputChange" data-field="app.editions"
+                        value="{{app.editions}}" placeholder="版数" />
                 </mp-cell>
                 <mp-cell prop="school" title="纸张数" ext-class="table-form-cell">
-                    <view class="label-right">540</view>
+                    <input class="weui-input" bindinput="formInputChange" data-field="app.papers"
+                        value="{{app.papers}}" placeholder="纸张数" />
                 </mp-cell>
-                <mp-cell prop="school" title="附件(只能上传一套试卷）" ext-class="table-form-cell">
+                <mp-cell prop="school" bindtap="onUpLoad" title="附件(只能上传一套试卷）" ext-class="table-form-cell">
                     <view class="label-right">
-                        <image bindtap="onUpLoad" class="work-link" src="../../image/work/link.jpg"></image>
+                        <image class="work-link" src="../../image/work/link.jpg"></image>
                     </view>
                 </mp-cell>
             </mp-cells>
         </mp-form>
         <view class="text-center">
-            <button class="mini-btn btn-blue mr20" size="mini">确定</button>
-            <button class="mini-btn btn-yellow" size="mini">关闭</button>
+            <button class="mini-btn btn-blue mr20" size="mini" bindtap="submitForm">确定</button>
+            <button class="mini-btn btn-yellow" size="mini" bindtap="back">关闭</button>
         </view>
     </view>
 </view>
