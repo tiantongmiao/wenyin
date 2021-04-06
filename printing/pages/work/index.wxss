@@ -1,4 +1,5 @@
 .container{
+  height: auto;
   background-color: rgba(237, 241, 252, 1);
 }
 .center-top-bg{
@@ -48,6 +49,16 @@
   color: #A1A1A1;
 }
 .echart_panel{
-  height: 500px;
+  position: relative;
+  display: block;
+  height: 300px;
+  background: #fff;
+  box-sizing: border-box;
+  margin: 10px;
+  border-radius: 4px;
+}
+.canvas {
   width: 100%;
+  position: absolute;
+  height: 300px;
 }

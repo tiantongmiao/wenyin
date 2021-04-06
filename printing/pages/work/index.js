@@ -1,49 +1,31 @@
 // index.js
 // 获取应用实例
-import * as echarts from '../../ec-canvas/echarts';
+var wxCharts = require('../../utils/wxcharts.js');
+var chartData = {
+  main: {
+      title: '总成交量',
+      data: [15, 20, 45, 37],
+      categories: ['2012', '2013', '2014', '2015']
+  },
+  sub: [{
+      title: '2012年度成交量',
+      data: [70, 40, 65, 100, 34, 18],
+      categories: ['1', '2', '3', '4', '5', '6']
+  }, {
+      title: '2013年度成交量',
+      data: [55, 30, 45, 36, 56, 13],
+      categories: ['1', '2', '3', '4', '5', '6']
+  }, {
+      title: '2014年度成交量',
+      data: [76, 45, 32, 74, 54, 35],
+      categories: ['1', '2', '3', '4', '5', '6']                
+  }, {
+      title: '2015年度成交量',
+      data: [76, 54, 23, 12, 45, 65],
+      categories: ['1', '2', '3', '4', '5', '6']
+  }]
+};
 const app = getApp();
-var xData = [], 
-    yData = [], chart, charts, pc=0, mobile=0;
-function initChart(canvas, width, height) {
-  chart = echarts.init(canvas, null, {
-    width: width,
-    height: height
-  });
-  canvas.setChart(chart);
-  var option = {
-    // color: ["#37A2DA"],
-    // xAxis: {
-    //   type: 'category',
-    //   boundaryGap: false,
-    //   data: xData,
-    // },
-    // yAxis: {
-    //   x: 'center',
-    //   type: 'value'
-    // },
-    // series: [{
-    //   type: 'line',
-    //   smooth: true,
-    //   data: yData
-    // }]
-    tooltip: {},
-    legend: {
-        data:['销量']
-    },
-    xAxis: {
-        data: ["衬衫","羊毛衫","雪纺衫","裤子","高跟鞋","袜子"]
-    },
-    yAxis: {},
-    series: [{
-        name: '销量',
-        type: 'bar',
-        data: [5, 20, 36, 10, 10, 20]
-    }]
-  };
-  chart.setOption(option);
-  return chart;
-}
-
 Component({
   pageLifetimes: {
     show() {
@@ -56,12 +38,35 @@ Component({
   },
   data: {
     year: '2021',
-    ec: {
-      onInit: initChart
-    }
+    
   },
-  onload: function(){
-    this.getData();
+  ready(){
+    new wxCharts({
+      canvasId: 'columnCanvas',
+      type: 'column',
+      categories: ['2016-08', '2016-09', '2016-10', '2016-11', '2016-12', '2017'],
+      series: [{
+          name: '成交量1',
+          data: [15, 20, 45, 37, 4, 80]
+      }, {
+          name: '成交量2',
+          data: [70, 40, 65, 100, 34, 18]
+      }, {
+          name: '成交量3',
+          data: [70, 40, 65, 100, 34, 18]
+      }, {
+          name: '成交量4',
+          data: [70, 40, 65, 100, 34, 18]
+      }],
+      yAxis: {
+          format: function (val) {
+              return val + '万';
+          }
+      },
+      width: 320,
+      height: 300,
+      dataLabel: false
+  },this);
   },
   methods: {
     // 事件处理函数
@@ -73,87 +78,41 @@ Component({
       const url = '/pages/work/approval'
       wx.navigateTo({url})
     },
-    getData() {
-      wx.showLoading({
-        title: '加载中...',
+    backToMainChart: function () {
+      this.setData({
+          chartTitle: chartData.main.title,
+          isMainChartDisplay: true
       });
-      let that = this;
-      barChart.setOption({
-        title: {
-            text: '第一个 ECharts 实例'
-        },
-        tooltip: {},
-        legend: {
-            data:['销量']
-        },
-        xAxis: {
-            data: ["衬衫","羊毛衫","雪纺衫","裤子","高跟鞋","袜子"]
-        },
-        yAxis: {},
-        series: [{
-            name: '销量',
-            type: 'bar',
-            data: [5, 20, 36, 10, 10, 20]
-        }]
+      columnChart.updateData({
+          categories: chartData.main.categories,
+          series: [{
+              name: '成交量',
+              data: chartData.main.data,
+              format: function (val, name) {
+                  return val.toFixed(2) + '万';
+              }
+          }]
       });
-      // wx.request({
-      //   url: 'https://list',
-      //   method: 'get',
-      //   data: {
-      //     year: that.data.year
-      //   },
-      //   dataType: 'jsonp',
-      //   success: function (res) {
-      //     wx.hideLoading();
-      //     console.log(res);
-      //     var data = JSON.parse(res.data);
-      //     var datas = [3,4,3,5,6,7,7,6,8,9,2,2];
-      //       // datas = [data[0].value1, data[0].value2, data[0].value3,
-      //       // data[0].value4, data[0].value5, data[0].value6, data[0].value7,
-      //       // data[0].value8, data[0].value9, data[0].value10, data[0].value11,
-      //       // data[0].value12,];
-            
-      //     var monthstr = ["1月", "2月", "3月", "4月", "5月", "6月", "7月", "8月", "9月", "10月", "11月", "12月"];
-      //     console.log(datas);
-      //     barChart.setOption({
-      //       title: {
-      //         text: "标题标题标题",
-      //         left: 'center'
-      //       },
-      //       xAxis: {
-      //         type: 'category',
-      //         data: monthstr,
-      //         axisLabel: {
-      //           interval: 0
-      //         }
-      //       },
-      //       yAxis: {
-      //         type: 'value'
-      //       },
-      //       series: [{
-      //         data: datas,
-      //         type: 'bar',
-      //         itemStyle: {
-      //           normal: {
-      //             label: {
-      //               show: true,
-      //               position: 'top',
-      //               textStyle: {
-      //                 color: 'black'
-      //               },
-      //               formatter: '{c}'
-      //             }
-      //           }
-      //         }
-      //       }],
-      //     });
-          
-      //   },
-      //   fail: function (res) {
-      //     console.log("执行失败：" + res);
-      //   }
-      // })
-   
-    },
+  },
+  touchHandler: function (e) {
+      var index = columnChart.getCurrentDataIndex(e);
+      if (index > -1 && index < chartData.sub.length && this.data.isMainChartDisplay) {
+          this.setData({
+              chartTitle: chartData.sub[index].title,
+              isMainChartDisplay: false
+          });
+          columnChart.updateData({
+              categories: chartData.sub[index].categories,
+              series: [{
+                  name: '成交量',
+                  data: chartData.sub[index].data,
+                  format: function (val, name) {
+                      return val.toFixed(2) + '万';
+                  }
+              }]
+          });
+
+      }
+  },
   },
 })
