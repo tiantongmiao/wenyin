@@ -9,8 +9,7 @@
     "pages/my/card",
     "pages/my/data",
     "pages/my/password",
-    "pages/work/apply",
-    "pages/work/approval"
+    "pages/work/apply"
   ],
   "tabBar": {
     "custom": true,
