@@ -1,11 +1,11 @@
 // index.js
 // 获取应用实例
-import { wxPath, request } from '../../utils/util'
+import { wxPath, request, setCookie } from '../../utils/util'
 
 Page({
     data: {
-        loginName: 'admin',
-        password: '111111'
+        loginName: 'director1',
+        password: '11111'
     },
     // 事件处理函数
     onLoad() {
@@ -21,6 +21,7 @@ Page({
         })
     },
     toIndex() {
+        let this_ = this
         request({
             url: wxPath + '/login',
             method: 'POST',
@@ -35,6 +36,7 @@ Page({
             }
         }).then(res => {
             if (res.code == 0) {
+                setCookie('role', res.data.role)
                 // 跳转至首页
                 wx.switchTab({
                     url: '/pages/work/index',

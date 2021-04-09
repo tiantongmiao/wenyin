@@ -2,12 +2,11 @@
 <view class="container">
   <view class="top">
     <image class="center-top-bg" src="../../image/home/home-top.jpg"></image>
-    <view class="center-notice-wrapper">
+    <view wx:if="{{printCount > 0}}" class="center-notice-wrapper">
       <image class="center-notice-icon" src="../../image/home/notice.png"></image>
       <view class="center-notice">
         <view class="center-notice-title">我的通知</view>
-        <view class="center-notice-text">2020年9月11日关于学生文案打印</view>
-        <view class="center-notice-text">2020-9-11 09:30:59</view>
+        <view class="center-notice-text">您有{{printCount}}条打印完成信息需要查看。</view>
       </view>
     </view>
   </view>
@@ -30,15 +29,15 @@
   </view>
   <view class='echart_panel clearfix'>
     <view class="fl">
-      <picker class="inline-block pl10" mode="date" value="{{startdate}}" bindchange="bindStartDateChange">
+      <picker class="inline-block pl10 width-78" mode="date" value="{{startDate}}" data-field='startDate' bindchange="bindDateChange">
         <view class="picker">
-          {{startdate != '' ? startdate : '请选择'}}
+          {{startDate != '' ? startDate : '请选择'}}
         </view>
       </picker>
       <view class="inline-block pl10">至</view>
-      <picker class="inline-block pl10" mode="date" value="{{enddate}}" bindchange="bindEndDateChange">
+      <picker class="inline-block pl10 width-78" mode="date" value="{{endDate}}" data-field='endDate' bindchange="bindDateChange">
         <view class="picker">
-          {{enddate != '' ? enddate : '请选择'}}
+          {{endDate != '' ? endDate : '请选择'}}
         </view>
       </picker>
     </view>

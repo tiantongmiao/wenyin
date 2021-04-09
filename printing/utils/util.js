@@ -34,7 +34,11 @@ const setCookie = (key, value) => {
 }
 
 const getCookie = (key) => {
-  return key + '=' + wx.getStorageSync(key)
+  return key + '=' + getCookieValue(key)
+}
+
+const getCookieValue = (key) => {
+  return wx.getStorageSync(key)
 }
 
 let request = ({header, method, url, data}) => {
@@ -103,5 +107,6 @@ module.exports = {
   formatNumber,
   setCookies,
   setCookie,
-  getCookie
+  getCookie,
+  getCookieValue
 }

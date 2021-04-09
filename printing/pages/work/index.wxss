@@ -64,3 +64,6 @@
   margin: 0 10px;
   background: #fff;
 }
+.width-78 {
+  width: 78px;
+}
