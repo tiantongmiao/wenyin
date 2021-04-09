@@ -37,7 +37,13 @@ Component({
     })
   },
   methods: {
-    
+    toDetail(e) {
+      const url = '/pages/work/apply?workflowId='
+        +e.currentTarget.dataset.workflowid+'&taskId='
+        +e.currentTarget.dataset.taskid+'&print='
+        +e.currentTarget.dataset.print
+      wx.navigateTo({url})
+    },
     search: function (value) {
       return new Promise((resolve, reject) => {
         setTimeout(() => {

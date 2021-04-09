@@ -4,14 +4,15 @@ Page({
         tabActive: 'info',
 
         app: {},
+        fileName: '',
         attach: {},
         date: '请选择',
         time: '09:00',
 
         schoolPrintType: '',
 
-        gradeList: [{deptName: '请选择部门'}],
-        gradeIndex: 0,
+        gradeList: [],
+        gradeIndex: '',
 
         dataTypeList: [],
         dataTypeIndex: 0,
@@ -19,10 +20,69 @@ Page({
         printTypeList: [],
         printTypeIndex: 0,
 
-        formData: {},
+        disabled: false,
+
+        opinionitems: [
+            { value: 1, name: '同意', checked: true},
+            { value: 0, name: '不同意'},
+        ],
+        opinion: 1,
+        opinionList: [
+            {value:0, label: '文印数字不符'},
+            {value:1, label: '文印类型不符'},
+            {value:2, label: '材料类型不符'},
+            {value:3, label: '预计取件时间不符'},
+        ],
+        opinionIndex: 0,
+        opinionInput: '文印数字不符',
+        enclosure: 1,
+        enclosureitems: [
+            {value:1, name: '选择附件', checked: true},
+            {value:2, name: '输入附件名称'},
+        ],
+        applyrules: [
+            {
+                name: 'grade',
+                rules: { required: true, message: '部门必填' },
+            },
+            {
+                name: 'pages',
+                rules: { required: true, message: '页数必填' },
+            },
+            {
+                name: 'copies',
+                rules: { required: true, message: '份数必填' },
+            },
+        ]
     },
-    onLoad() {
+    onLoad(option) {
+        Object.keys(option).length > 0 && 
+        (option.print  = option.print == 1) && this.setData({
+            disabled: true,
+            option: option
+        })
         this.getData()
+    },
+    opinionRadioChange(e) {
+         this.setData({
+            opinion :  e.detail.value,
+            [`app.pass`]: e.detail.value
+         })
+    },
+    enclosureRadioChange(e) {
+        this.setData({
+           enclosure :  e.detail.value,
+           [`app.fileType`]: e.detail.value
+        })
+   },
+    opinionChange(e) {
+        let index = e.detail.value;
+        let label = this.data.opinionList[index].label
+        this.setData({
+            opinionIndex: index,
+            [`app.result`]: label,
+            [`app.pass`]: index,
+        })
     },
     getData() {
         request({
@@ -32,17 +92,30 @@ Page({
                 'content-type': 'application/json',
                 'Accept': 'application/json'
             },
-            data: {}
+            data: this.data.option ? this.data.option : {}
         }).then(res => {
-            let {app, gradeList, dataTypeList, printTypeList, schoolPrintType} = res.data
+            let {app, gradeList, dataTypeList, printTypeList, schoolPrintType, attach} = res.data
             app.applicationDate = app.applicationDate || new Date().getTime()
+            let _index = gradeList.findIndex((item , index) => {
+                return item.deptId == app.grade
+            })
             this.setData({
                 app: app || this.data.app,
-                gradeList: (gradeList && [{deptName: '请选择部门'}].concat(gradeList)) || this.data.gradeList,
+                gradeList: (gradeList && [].concat(gradeList)) || this.data.gradeList,
+                gradeIndex: _index != -1 ? _index : '',
+                attach: attach,
                 dataTypeList: dataTypeList || this.data.dataTypeList,
                 printTypeList: printTypeList || this.data.printTypeList,
                 schoolPrintType: schoolPrintType || this.data.schoolPrintType
             })
+            this.data.option && (this.setData({
+                [`app.pages`]: attach.pages,
+                [`app.copies`]: attach.copies,
+                [`app.editions`]: attach.editions,
+                [`app.papers`]: attach.papers,
+                [`app.taskId`]: this.data.option.taskId,
+                [`app.workflowId`]: this.data.option.workflowId,
+            }))
         })
     },
     tabClick(e) {
@@ -54,7 +127,7 @@ Page({
         let index = e.detail.value;
         this.setData({
             gradeIndex: index,
-            [`formData.grade`]: this.data.gradeList[index]
+            [`app.grade`]: this.data.gradeList[index].deptId
         })
     },
     bindDateChange(e) {
@@ -72,7 +145,7 @@ Page({
         let dataType = this.data.dataTypeList[index].dictValue
         this.setData({
             dataTypeIndex: index,
-            [`formData.dataType`]: dataType
+            [`app.dataType`]: dataType
         })
         request({
             url: path + '/print/getPrintType',
@@ -90,22 +163,32 @@ Page({
         let index = e.detail.value;
         this.setData({
             printTypeIndex: index,
-            [`formData.printType`]: this.data.printTypeList[index]
+            [`app.printType`]: this.data.printTypeList[index]
         })
     },
     formInputChange(e) {
         const { field } = e.currentTarget.dataset
+        if(field == 'typeName') {
+            let _data = this.data.app
+            delete _data.fileName
+            this.setData({
+                app: _data
+            })
+        }
         this.setData({
-            [`formData.${field}`]: e.detail.value
+            [`app.${field}`]: e.detail.value
         })
     },
+    onDownLoad(e) {
+
+    },
     onUpLoad(res) {
+        const that = this;
         wx.chooseMessageFile({
             count: 1,
             type: 'file',
             extension: ["doc", "docx", "xls", "xlsx", "pptx","ppt", "pdf"],
             success (res) {
-                console.log(res)
                 if(res.tempFiles && res.tempFiles.length > 0) {
                     const tempFilePaths = res.tempFiles
                     upload({
@@ -113,12 +196,18 @@ Page({
                       filePath: tempFilePaths[0].path,
                       name: 'file_data'
                     }).then (res => {
-                        console.log(res)
-                        this.setData({
-                            [`attach.attachId`]: attach.attachId
+                        that.setData({
+                            [`attach.attachId`]: res.attach.attachId,
+                            [`app.attachId`]: res.attach.attachId,
+                            [`fileName`]: res.attach.fileName,
+                        })
+                        let _data = that.data.app
+                        delete _data.typeName
+                        that.setData({
+                            app: _data
                         })
                     }).catch(res => {
-                        console.log(res)
+                        // console.log(res)
                     })
                 } else {
                     
@@ -127,11 +216,62 @@ Page({
         })
     },
     submitForm(){
-        let c = this.selectComponent('#apply')
+        let c = this.selectComponent('#apply'), that = this
         c.validate((valid, errors) => {
-            console.log('valid', valid, errors)
             if (!valid) {
+                const firstError = Object.keys(errors)
+                if (firstError.length) {
+                    this.setData({
+                        error: errors[firstError[0]].message
+                    })
+                }
             } else {
+                let _request = true, _saveData = {};
+
+                this.data.app.fileType == 1 && 
+                !this.data.app.fileName && 
+                this.setData({
+                    error: '请上传附件'
+                }) && (_request = false);
+
+                this.data.app.fileType == 2 && 
+                !this.data.app.typeName && 
+                this.setData({
+                    error: '请输入附件名称'
+                }) && (_request = false);
+                _saveData = {
+                    printInfoRep: that.data.app
+                }
+                
+                let _url = _saveData.printInfoRep.pass==0 ? 'cancel' : 'appsave'
+                //文印申请和处理
+                _request && (
+                    request({
+                        url: path + '/print/' + _url,
+                        method: 'POST',
+                        header: {
+                            //设置参数内容类型为x-www-form-urlencoded
+                            'content-type': 'application/json',
+                            'Accept': 'application/json'
+                        },
+                        data: _saveData
+                    }).then(res => {
+                        if (res.code == 0) {
+                            // 跳转至首页
+                            let _surl = '/pages/work/index';
+                            this.data.option && (_surl = '/pages/center/index')
+                            wx.switchTab({
+                                url: _surl,
+                            })
+                        } else {
+                            wx.showModal({
+                                title: '请求失败',
+                                content: res.msg,
+                                showCancel: false
+                            })
+                        }
+                    })
+                )
             }
         })
     },

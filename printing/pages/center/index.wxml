@@ -10,7 +10,13 @@
         <!-- <view>
           <mp-searchbar class="search-bar" bindselectresult="selectResult" search="{{search}}"></mp-searchbar>
         </view> -->
-        <view wx:for="{{listData}}" wx:key="index" class="center-card">
+        <view wx:for="{{listData}}" 
+          wx:key="index" class="center-card"
+          bindtap="toDetail" 
+          data-workflowId="{{item.proc_inst_id_}}"
+          data-taskId="{{item.task_id_}}"
+          data-print="{{item.todo}}" 
+          >
           <view class="center-card-title-top">{{item.actname}}</view>
           <view class="center-card-title">{{item.dataType}}</view>
           <view class="center-card-time">接收时间：{{timeUtil.formatTime(item.exp_pickup_date, 'yyyy-MM-dd hh:mm')}}</view>

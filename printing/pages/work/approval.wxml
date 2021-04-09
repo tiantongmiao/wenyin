@@ -81,7 +81,7 @@
                 <mp-cell prop="school" title="纸张数" ext-class="table-form-cell">
                     <view class="label-right">540</view>
                 </mp-cell>
-                <mp-cell prop="school" title="附件(只能上传一套试卷）" ext-class="table-form-cell">
+                <mp-cell prop="school" title="下载附件" ext-class="table-form-cell">
                     <view class="label-right">
                         <image bindtap="onUpLoad" class="work-link" src="../../image/work/link.jpg"></image>
                     </view>

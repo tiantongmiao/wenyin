@@ -1,50 +1,51 @@
+<mp-toptips msg="{{error}}" type="error" show="{{error}}"></mp-toptips>
 <view class="container">
     <view class="m-0-5">
-        <mp-form id="apply">
+        <mp-form id="apply" rules="{{applyrules}}" models="{{app}}">
             <mp-cells class="table-form" title="申请信息">
-                <mp-cell prop="school" title="学校" ext-class="table-form-cell">
+                <mp-cell prop="deptName" title="学校" ext-class="table-form-cell">
                     <view class="label-right">{{app.deptName || ''}}</view>
                 </mp-cell>
-                <mp-cell prop="school" title="年份" ext-class="table-form-cell">
+                <mp-cell prop="year" title="年份" ext-class="table-form-cell">
                     <view class="label-right">{{app.year || ''}}</view>
                 </mp-cell>
-                <mp-cell prop="school" title="月份" ext-class="table-form-cell">
+                <mp-cell prop="month" title="月份" ext-class="table-form-cell">
                     <view class="label-right">{{app.month || ''}}</view>
                 </mp-cell>
-                <mp-cell prop="school" title="学期" ext-class="table-form-cell">
+                <mp-cell prop="semester" title="学期" ext-class="table-form-cell">
                     <view class="label-right">{{app.semester || ''}}</view>
                 </mp-cell>
-                <mp-cell prop="school" title="部门" ext-class="table-form-cell">
+                <mp-cell prop="grade" title="部门" ext-class="table-form-cell">
                     <view class="weui-cell weui-cell_select label-right">
                         <view class="weui-cell__bd">
-                            <picker bindchange="bindGradeChange" value="{{gradeIndex}}" range-key="deptName" range="{{gradeList}}">
-                                <view class="weui-select weui-select_in-select-after">{{gradeList[gradeIndex].deptName}}</view>
+                            <picker disabled="{{disabled}}" bindchange="bindGradeChange" value="{{gradeIndex}}" range-key="deptName" range="{{gradeList}}">
+                                <view class="weui-select weui-select_in-select-after">{{gradeIndex != '' ? gradeList[gradeIndex].deptName : '请选择'}}</view>
                             </picker>
                         </view>
                     </view>
                 </mp-cell>
-                <mp-cell prop="school" title="学科" ext-class="table-form-cell">
+                <mp-cell prop="subject" title="学科" ext-class="table-form-cell">
                     <view class="label-right">{{app.subject || ''}}</view>
                 </mp-cell>
-                <mp-cell prop="school" title="申请人姓名" ext-class="table-form-cell">
+                <mp-cell prop="applicantName" title="申请人姓名" ext-class="table-form-cell">
                     <view class="label-right">{{app.applicantName}}</view>
                 </mp-cell>
-                <mp-cell prop="school" title="申请时间" ext-class="table-form-cell">
+                <mp-cell prop="applicationDate" title="申请时间" ext-class="table-form-cell">
                     <view class="label-right">{{timeUtil.formatTime(app.applicationDate, 'yyyy-MM-dd hh:mm')}}</view>
                 </mp-cell>
                 <mp-cell prop="date" title="预取件日期" ext-class="table-form-cell">
                     <view class="weui-cell weui-cell_select label-right">
                         <view class="weui-cell__bd">    
-                            <picker data-field="date" mode="date" value="{{date}}" bindchange="bindDateChange">
+                            <picker disabled="{{disabled}}" data-field="date" mode="date" value="{{date}}" bindchange="bindDateChange">
                                 <view class="label-right">{{date}}</view>
                             </picker>
                         </view>
                     </view>
                 </mp-cell>
-                <mp-cell prop="date" title="预取件时间" ext-class="table-form-cell">
+                <mp-cell prop="time" title="预取件时间" ext-class="table-form-cell">
                     <view class="weui-cell weui-cell_select label-right">
                         <view class="weui-cell__bd">    
-                            <picker data-field="time" mode="time" value="{{time}}" bindchange="bindTimeChange">
+                            <picker disabled="{{disabled}}" data-field="time" mode="time" value="{{time}}" bindchange="bindTimeChange">
                                 <view class="label-right">{{time}}</view>
                             </picker>
                         </view>
@@ -52,58 +53,124 @@
                 </mp-cell>
             </mp-cells>
         </mp-form>
-        <mp-form id="printing">
+        <mp-form id="apply" rules="{{applyrules}}" models="{{app}}">
             <mp-cells class="table-form" title="文印信息">
-                <mp-cell prop="school" title="材料类型" ext-class="table-form-cell">
+                <mp-cell prop="dictLabel" title="材料类型" ext-class="table-form-cell">
                     <view class="weui-cell weui-cell_select label-right">
                         <view class="weui-cell__bd">
-                            <picker bindchange="bindDataTypeChange" value="{{dataTypeIndex}}" range-key="dictLabel" range="{{dataTypeList}}">
+                            <picker disabled="{{disabled}}" bindchange="bindDataTypeChange" value="{{dataTypeIndex}}" range-key="dictLabel" range="{{dataTypeList}}">
                                 <view class="weui-select weui-select_in-select-after">{{dataTypeList[dataTypeIndex].dictLabel}}</view>
                             </picker>
                         </view>
                     </view>
                 </mp-cell>
-                <mp-cell prop="school" title="文印类型" ext-class="table-form-cell">
+                <mp-cell prop="print" title="文印类型" ext-class="table-form-cell">
                     <view class="weui-cell weui-cell_select label-right">
                         <view class="weui-cell__bd">
-                            <picker bindchange="bindPrintTypeChange" value="{{printTypeIndex}}" range-key="dictLabel" range="{{printTypeList}}">
+                            <picker disabled="{{disabled}}" bindchange="bindPrintTypeChange" value="{{printTypeIndex}}" range-key="dictLabel" range="{{printTypeList}}">
                                 <view class="weui-select weui-select_in-select-after">{{printTypeList[printTypeIndex].dictLabel}}</view>
                             </picker>
                         </view>
                     </view>
                 </mp-cell>
-                <mp-cell prop="school" title="页数" ext-class="table-form-cell">
-                    <input class="weui-input" bindinput="formInputChange" data-field="attach.pages"
-                        value="{{attach.pages}}" placeholder="页数" />
+                <mp-cell prop="pages" title="页数" ext-class="table-form-cell">
+                    <view class="weui-cell weui-cell_select label-right">
+                        <input disabled="{{disabled}}" class="weui-input" bindinput="formInputChange" data-field="pages"
+                            value="{{app.pages}}" placeholder="页数" />
+                    </view> 
                 </mp-cell>
-                <mp-cell prop="school" title="份数" ext-class="table-form-cell">
-                    <input class="weui-input" bindinput="formInputChange" data-field="attach.copies"
-                        value="{{attach.copies}}" placeholder="份数" />
+                <mp-cell prop="copies" title="份数" ext-class="table-form-cell">
+                    <view class="weui-cell weui-cell_select label-right">
+                        <input disabled="{{disabled}}" class="weui-input" bindinput="formInputChange" data-field="copies"
+                            value="{{app.copies}}" placeholder="份数" />
+                    </view>
                 </mp-cell>
                 <mp-cell prop="printings" title="印刷数" ext-class="table-form-cell">
-                    <input class="weui-input" bindinput="formInputChange" data-field="app.printings"
-                        value="{{app.printings}}" placeholder="印刷数" />
+                    <view class="weui-cell weui-cell_select label-right">
+                        <input disabled="{{disabled}}" class="weui-input" bindinput="formInputChange" data-field="printings"
+                            value="{{app.printings}}" placeholder="印刷数" />
+                    </view>
                 </mp-cell>
-                <mp-cell prop="school" title="复印数" ext-class="table-form-cell">
-                    <input class="weui-input" bindinput="formInputChange" data-field="app.duplicates"
-                        value="{{app.duplicates}}" placeholder="复印数" />
+                <mp-cell prop="duplicates" title="复印数" ext-class="table-form-cell">
+                    <view class="weui-cell weui-cell_select label-right">
+                        <input disabled="{{disabled}}" class="weui-input" bindinput="formInputChange" data-field="duplicates"
+                            value="{{app.duplicates}}" placeholder="复印数" />
+                    </view>
                 </mp-cell>
-                <mp-cell prop="school" title="版数" ext-class="table-form-cell">
-                    <input class="weui-input" bindinput="formInputChange" data-field="app.editions"
-                        value="{{app.editions}}" placeholder="版数" />
+                <mp-cell prop="editions" title="版数" ext-class="table-form-cell">
+                    <view class="weui-cell weui-cell_select label-right">
+                        <input disabled="{{disabled}}" class="weui-input" bindinput="formInputChange" data-field="editions"
+                            value="{{app.editions}}" placeholder="版数" />
+                    </view>
                 </mp-cell>
-                <mp-cell prop="school" title="纸张数" ext-class="table-form-cell">
-                    <input class="weui-input" bindinput="formInputChange" data-field="app.papers"
-                        value="{{app.papers}}" placeholder="纸张数" />
+                <mp-cell prop="papers" title="纸张数" ext-class="table-form-cell">
+                    <view class="weui-cell weui-cell_select label-right">
+                        <input disabled="{{disabled}}" class="weui-input" bindinput="formInputChange" data-field="papers"
+                            value="{{app.papers}}" placeholder="纸张数" />
+                    </view>
                 </mp-cell>
-                <mp-cell prop="school" bindtap="onUpLoad" title="附件(只能上传一套试卷）" ext-class="table-form-cell">
-                    <view class="label-right">
+                <mp-cell wx:if="{{!disabled}}" prop="enclosure" title="附件类型" ext-class="table-form-cell">
+                    <view class="weui-cell weui-cell_select label-right">
+                        <radio-group bindchange="enclosureRadioChange">
+                            <label class="weui-cell weui-check__label" wx:for="{{enclosureitems}}" wx:key="value">
+    
+                            <view class="weui-cell__hd">
+                                <radio value="{{item.value}}" checked="{{enclosure == item.value}}"/>
+                            </view>
+                            <view class="weui-cell__bd">{{item.name}}</view>
+                            </label>
+                        </radio-group>
+                    </view>
+                </mp-cell>
+                <mp-cell wx:if="{{!disabled && enclosure == 1}}" 
+                    prop="fileName" 
+                    bindtap="onUpLoad" title="附件(只能上传一套试卷）" ext-class="table-form-cell">
+                    <!-- 上传附件 -->
+                    <view wx:if="{{enclosure==1}}" class="label-right">
+                        <span class="ellipse">{{fileName}}</span>
                         <image class="work-link" src="../../image/work/link.jpg"></image>
+                    </view>
+                </mp-cell>
+                <mp-cell wx:if="{{!disabled && enclosure == 2}}" 
+                    prop="typeName" title="附件名称" ext-class="table-form-cell">
+                    
+                    <!-- 输入附件名称 -->
+                    <view  class="label-right">
+                        <input class="weui-input select-input" bindinput="formInputChange" data-field="typeName"
+                            value="{{app.typeName}}" placeholder="输入附件名称" />
+                    </view>
+                </mp-cell>
+                <mp-cell wx:if="{{disabled}}" prop="download" bindtap="onDownLoad" title="下载附件" ext-class="table-form-cell">
+                    <view class="label-right">
+                        <span class="ellipse">{{attach.fileName}}</span>
+                        <image class="work-link" src="../../image/work/link.jpg"></image>
+                    </view>
+                </mp-cell>
+                <mp-cell wx:if='{{disabled}}' prop="opinionInput" title="审批意见" ext-class="table-form-cell">
+                    <view class="weui-cell weui-cell_select label-right">
+                        <radio-group bindchange="opinionRadioChange">
+                            <label class="weui-cell weui-check__label" wx:for="{{opinionitems}}" wx:key="value">
+
+                            <view class="weui-cell__hd">
+                                <radio value="{{item.value}}" checked="{{opinion == item.value}}"/>
+                            </view>
+                            <view class="weui-cell__bd">{{item.name}}</view>
+                            </label>
+                        </radio-group>
+                    </view>
+                    <view wx:if="{{opinion == 0}}" class="label-right">
+                        <view class="weui-cell__bd">
+                            <picker class="input-picker" bindchange="opinionChange" value="{{opinionIndex}}" range-key="label" range="{{opinionList}}">
+                                <mp-icon icon="arrow" color="#ddd" size="{{14}}"></mp-icon>
+                            </picker>
+                        </view>
+                        <input class="weui-input select-input" bindinput="formInputChange" data-field="result"
+                            value="{{app.result}}" placeholder="不同意原因" />
                     </view>
                 </mp-cell>
             </mp-cells>
         </mp-form>
-        <view class="text-center">
+        <view class="text-center mt20">
             <button class="mini-btn btn-blue mr20" size="mini" bindtap="submitForm">确定</button>
             <button class="mini-btn btn-yellow" size="mini" bindtap="back">关闭</button>
         </view>
