@@ -228,7 +228,7 @@ Page({
                 if(res.tempFiles && res.tempFiles.length > 0) {
                     const tempFilePaths = res.tempFiles
                     upload({
-                      url: 'http://180.97.195.59:30001/pas/attach/uploadfile', //仅为示例，非真实的接口地址
+                      url: path + '/attach/uploadfile', //仅为示例，非真实的接口地址
                       filePath: tempFilePaths[0].path,
                       name: 'file_data'
                     }).then (res => {
