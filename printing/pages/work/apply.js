@@ -108,6 +108,11 @@ Page({
                 printTypeList: printTypeList || this.data.printTypeList,
                 schoolPrintType: schoolPrintType || this.data.schoolPrintType
             })
+            !this.data.option && (
+                this.setData({
+                    [`app.fileType`]: 1
+                })
+            )
             this.data.option && (this.setData({
                 [`app.pages`]: attach.pages,
                 [`app.copies`]: attach.copies,
@@ -180,7 +185,38 @@ Page({
         })
     },
     onDownLoad(e) {
-
+        wx.downloadFile({
+            url: wxPath+'/attach/download?attachId='+ this.data.attach.attachId,
+            header: {'content-type': 'application/x-www-form-urlencoded'},
+            success: function (res) {
+                // console.log(res)
+                const tempFilePath = res.tempFilePath;
+                // 保存文件
+                wx.saveFile({
+                    tempFilePath,
+                    success: function (res) {
+                        const savedFilePath = res.savedFilePath;
+                        // console.log(res)
+                        // 打开文件
+                        wx.openDocument({
+                            filePath: savedFilePath,
+                            success: function (res) {
+                            // console.log(res)
+                            },
+                        });
+                    },
+                    fail: function (err) {
+                        // console.log('保存失败：', err)
+                        this.setData({
+                            error: err
+                        })
+                    }
+                });
+            },
+            fail: function (err) {
+            console.log('下载失败：', err);
+            },
+        });
     },
     onUpLoad(res) {
         const that = this;
@@ -242,7 +278,8 @@ Page({
                 _saveData = {
                     printInfoRep: that.data.app
                 }
-                
+                _saveData.printInfoRep['dataType'] = this.data.dataTypeList[this.data.dataTypeIndex].dictValue
+                _saveData.printInfoRep['printType'] = this.data.printTypeList[this.data.printTypeIndex].dictValue
                 let _url = _saveData.printInfoRep.pass==0 ? 'cancel' : 'appsave'
                 //文印申请和处理
                 _request && (

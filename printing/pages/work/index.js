@@ -19,7 +19,6 @@ Component({
   },
   ready() {
     this.getChartsData()
-    console.log(getCookieValue('role'))
     if (['teacher', 'director'].indexOf(getCookieValue('role')) >= 0) {
       this.getPrintCount()
       setInterval(() => {
@@ -39,7 +38,7 @@ Component({
           })
         }
       }).catch(res => {
-        console.log(res)
+        // console.log(res)
       })
     },
     // 事件处理函数
