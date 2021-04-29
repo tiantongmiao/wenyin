@@ -54,7 +54,6 @@ Component({
         'orderByColumn': 'createTime',
         'isAsc': 'desc'
       }
-      console.log(getUser())
       getUser() && getUser('user').deptId && (data['deptId'] = getUser('user').deptId)
       request({
           url: wxPath + '/user/list',
