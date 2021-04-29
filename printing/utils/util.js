@@ -3,6 +3,7 @@ const ip = app.globalData.host
 const wxPath = ip + "/pas/wx"
 const path = ip + '/pas'
 const tokenKey = 'JSESSIONID'
+let user = app.globalData.user
 
 const formatTime = date => {
   const year = date.getFullYear()
@@ -97,6 +98,14 @@ let upload = ({url, filePath, name, header, data,}) => {
 
 }
 
+let setUser = (user) => {
+  app.globalData.user = user
+}
+
+let getUser = () => {
+  return app.globalData.user
+}
+
 module.exports = {
   request,
   upload,
@@ -108,5 +117,7 @@ module.exports = {
   setCookies,
   setCookie,
   getCookie,
-  getCookieValue
+  getCookieValue,
+  setUser,
+  getUser
 }

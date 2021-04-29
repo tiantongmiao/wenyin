@@ -1,4 +1,4 @@
-import { path, request } from '../../utils/util'
+import { wxPath, request, getUser } from '../../utils/util'
 Component({
   pageLifetimes: {
     show() {
@@ -48,15 +48,18 @@ Component({
       // console.log('select result', e.detail)
     },
     getUserList() {
+      let data = {
+        'pageSize': 20,
+        'pageNum': this.data.page,
+        'orderByColumn': 'createTime',
+        'isAsc': 'desc'
+      }
+      console.log(getUser())
+      getUser() && getUser('user').deptId && (data['deptId'] = getUser('user').deptId)
       request({
-          url: path + '/system/user/list',
+          url: wxPath + '/user/list',
           method: 'POST',
-          data: {
-            'pageSize': 20,
-            'pageNum': this.data.page,
-            'orderByColumn': 'createTime',
-            'isAsc': 'desc'
-          }
+          data: data
         }).then(res => {
           if (res.code == 0) {
             this.setData({

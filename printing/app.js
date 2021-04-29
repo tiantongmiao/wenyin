@@ -36,6 +36,8 @@ App({
   globalData: {
     userInfo: null,
     // host: 'http://180.97.195.59:30001'
-    host: 'https://test.printer.jsbd.net'
+    // host: 'https://test.printer.jsbd.net'
+    host: 'http://localhost:8089',
+    user: null
   }
 })

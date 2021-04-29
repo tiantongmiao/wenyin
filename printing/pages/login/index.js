@@ -1,6 +1,6 @@
 // index.js
 // 获取应用实例
-import { wxPath, request, setCookie } from '../../utils/util'
+import { wxPath, request, setCookie, setUser } from '../../utils/util'
 
 Page({
     data: {
@@ -37,6 +37,7 @@ Page({
         }).then(res => {
             if (res.code == 0) {
                 setCookie('role', res.data.role)
+                setUser(res.data.user)
                 // 跳转至首页
                 wx.switchTab({
                     url: '/pages/work/index',
