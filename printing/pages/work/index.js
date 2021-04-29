@@ -103,6 +103,10 @@ Component({
       const url = '/pages/center/index'
       wx.switchTab({ url })
     },
+    toMail() {
+      const url = '/pages/mail/index'
+      wx.switchTab({ url })
+    },
     bindDateChange(e) {
       const { field } = e.currentTarget.dataset
       this.setData({

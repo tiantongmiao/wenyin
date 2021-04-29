@@ -21,7 +21,7 @@
         <image class="grid-item-icon" src="../../image/home/shenpi.png"></image>
         <view class="grid-item-text">审批</view>
       </view>
-      <view class="grid-item">
+      <view bindtap="toMail" class="grid-item">
         <image class="grid-item-icon" src="../../image/home/tongxunlu.png"></image>
         <view class="grid-item-text">通讯录</view>
       </view>

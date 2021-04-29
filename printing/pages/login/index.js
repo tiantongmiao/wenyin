@@ -4,8 +4,8 @@ import { wxPath, request, setCookie } from '../../utils/util'
 
 Page({
     data: {
-        loginName: 'director1',
-        password: '11111'
+        loginName: '',
+        password: ''
     },
     // 事件处理函数
     onLoad() {
