@@ -1,5 +1,5 @@
 
-import { wxPath, request } from '../../utils/util'
+import { wxPath, path, request } from '../../utils/util'
 
 Page({
     data: {
@@ -24,7 +24,7 @@ Page({
                 rules: {
                     required: true, 
                     rangelength: [2,8], 
-                    message: '登录名必填且大于2个字小于8个字'
+                    message: '登录名必填且大于2个字小于8个字',
                 },
             }, {
                 name: 'password',
@@ -52,7 +52,7 @@ Page({
             }, 
             {
                 name: 'phonenumber',
-                rules: { required: true, mobile: true, message: '必填' },
+                rules: { required: true, mobile: true, message: '请输入正确的手机号码' },
             }, 
             {
                 name: 'wechat',
@@ -92,6 +92,67 @@ Page({
         const { field } = e.currentTarget.dataset
         this.setData({
             [`formData.${field}`]: e.detail.value
+        })
+    },
+    validateLoginName(e) {
+        request({
+            url: path + '/system/user/checkLoginNameUnique',
+            method: 'POST',
+            data: {
+                loginName: e.detail.value,
+                name: e.detail.value,
+            },
+        }).then((flag) => {
+            if(!flag) {
+                this.setData({
+                    error: '用户已存在', 
+                    loginNameValidate: false
+                })
+            }else {
+                this.setData({
+                    loginNameValidate: true
+                })
+            }
+        })
+    },
+    validateEmail(e) {
+        request({
+            url: path + '/system/user/checkEmailUnique',
+            method: 'POST',
+            data: {
+                email: e.detail.value,
+            },
+        }).then((flag) => {
+            if(flag != true) {
+                this.setData({
+                    error: '电子邮箱不正确或已存在',
+                    emailValidate: false
+                })
+            } else {
+                this.setData({
+                    emailValidate: true
+                })
+            }
+        })
+    },
+    validatePhone(e) {
+        request({
+            url: path + '/system/user/checkPhoneUnique',
+            method: 'POST',
+            data: {
+                phonenumber: e.detail.value,
+            },
+        }).then((flag) => {
+            if(flag != true) {
+                this.setData({
+                    error: '手机号码不正确或已存在',
+                    phoneValidate: false
+                })
+            } else {
+                this.setData({
+                    phoneValidate: true
+                })
+            }
         })
     },
     bindSexChange(e) {
@@ -218,7 +279,6 @@ Page({
     submitForm() {
         let c = this.selectComponent('#apply')
         c.validate((valid, errors) => {
-            //console.log('valid', valid, errors)
             if (!valid) {
                 const firstError = Object.keys(errors)
                 if (firstError.length) {
@@ -227,6 +287,7 @@ Page({
                     })
                 }
             } else {
+                this.data.loginNameValidate && this.emailValidate && this.data.phoneValidate &&
                 request({
                     url: wxPath + '/register',
                     method: 'POST',
@@ -237,19 +298,22 @@ Page({
                     },
                     data: this.data.formData,
                 }).then((res) => {
-                        if (res.data.code == 0) {
-                            // 跳转至首页
-                            wx.reLaunch({
-                                url: '/pages/login/index',
-                            })
-                        } else {
-                            wx.showModal({
-                                title: '注册失败',
-                                content: res.data.msg,
-                                showCancel: false
-                            })
-                        }
-                    })
+                    if (res.code == 0) {
+                        // 跳转至首页
+                        this.setData({
+                            success: '注册成功'
+                        })
+                        wx.reLaunch({
+                            url: '/pages/login/index',
+                        })
+                    } else {
+                        wx.showModal({
+                            title: '注册失败',
+                            content: res.data.msg,
+                            showCancel: false
+                        })
+                    }
+                })
             }
         })
     },
