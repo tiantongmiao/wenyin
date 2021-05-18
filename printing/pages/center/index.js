@@ -60,20 +60,21 @@ Component({
       that.setData({
         loading: true
       })
+      let data = {
+        'order': 'asc',
+        'offset': that.data.page  * 20,
+        'limit': 20
+      }
       if(that.data.tabActive == 'wait') {
-        _url = '/print/printdata'
+        _url = '/print/approvedata'
       } else {
         _url = '/print/donedata'
+        data['params[dataType]'] = -1
       }
       request({
         url: path + _url,
         method: 'POST',
-        data: {
-          'order': 'asc',
-          'offset': that.data.page  * 20,
-          'limit': 20,
-          'params[dataType]': -1
-        }
+        data: data
       }).then(res => {
         if (res.code == 0) {
           that.setData({

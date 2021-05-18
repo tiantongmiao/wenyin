@@ -56,11 +56,21 @@ Page({
         ]
     },
     onLoad(option) {
+        Object.keys(option).length  == 0 && this.setData({
+            pageType: 'add'
+        })//申请
         Object.keys(option).length > 0 && 
-        (option.print  = option.print == 1) && this.setData({
-            disabled: true,
+        (option.print == 1) && this.setData({
+            disabled: false,
+            pageType: 'apply',
             option: option
-        })
+        })//待处理
+        Object.keys(option).length > 0 && 
+        (option.print == 'undefined') && this.setData({
+            disabled: true,
+            pageType: 'end',
+            option: option
+        })//已处理
         this.getData()
     },
     opinionRadioChange(e) {
@@ -183,6 +193,54 @@ Page({
         this.setData({
             [`app.${field}`]: e.detail.value
         })
+        this.countNumber()
+    },
+    countNumber() {
+        let copies = this.data.app.copies || 1
+        let coefficient = {
+            '1254': {
+                '1267': {'printings': [2,copies], 'duplicates': [1,1], 'editions': [2,1], 'papers': [2,copies]},
+                '1268': {'printings': [4,copies], 'duplicates': [1,1], 'editions': [2,1], 'papers': [4,copies]},
+                '1269': {'printings': [1,copies], 'duplicates': [1,1], 'editions': [1,1], 'papers': [1,copies]},
+                '1270': {'printings': [2,copies], 'duplicates': [1,1], 'editions': [1,1], 'papers': [2,copies]}
+            },
+            '1255': {
+                '1271': {'printings': null, 'duplicates': [1,copies], 'editions': null, 'papers': [1,copies]},
+                '1272': {'printings': null, 'duplicates': [2,copies], 'editions': null, 'papers': [1,copies]},
+                '1273': {'printings': null, 'duplicates': [2,copies*2], 'editions': null, 'papers': [2,copies]},
+                '1274': {'printings': null, 'duplicates': [2,copies*2], 'editions': null, 'papers': [4,copies]}
+            }
+        }
+        this.setAppData(coefficient)
+    },
+    setAppData(coefficient) {
+        let dataTypeCode = this.data.dataTypeList[this.data.dataTypeIndex].dictCode
+        let printTypeCode = this.data.printTypeList[this.data.printTypeIndex].dictCode
+
+        let pages = this.data.app.pages
+        
+        let _coefficient = coefficient[dataTypeCode][printTypeCode]
+        
+        let func = this.data.app.pages && this.data.app.copies ? () => {
+            for (const key in _coefficient) {
+                if (_coefficient.hasOwnProperty(key) && _coefficient[key]) {
+                    const value = _coefficient[key][0]
+                    const _copies = _coefficient[key][1]
+                    this.setData({
+                        [`app.${key}`]: Math.ceil(pages/value) * _copies
+                    })
+                }
+            }
+        } : () => {
+            for (const key in _coefficient) {
+                if (_coefficient.hasOwnProperty(key)) {
+                    this.setData({
+                        [`app.${key}`]: ''
+                    })
+                }
+            }
+        }
+        func()
     },
     onDownLoad(e) {
         wx.downloadFile({

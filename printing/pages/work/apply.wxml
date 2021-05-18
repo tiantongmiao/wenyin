@@ -87,29 +87,29 @@
                 </mp-cell>
                 <mp-cell prop="printings" title="印刷数" ext-class="table-form-cell">
                     <view class="weui-cell weui-cell_select label-right">
-                        <input disabled="{{disabled}}" class="weui-input" bindinput="formInputChange" data-field="printings"
-                            value="{{app.printings}}" placeholder="印刷数" />
+                        <input disabled class="weui-input" bindinput="formInputChange" data-field="printings"
+                            value="{{app.printings}}"  />
                     </view>
                 </mp-cell>
                 <mp-cell prop="duplicates" title="复印数" ext-class="table-form-cell">
                     <view class="weui-cell weui-cell_select label-right">
-                        <input disabled="{{disabled}}" class="weui-input" bindinput="formInputChange" data-field="duplicates"
-                            value="{{app.duplicates}}" placeholder="复印数" />
+                        <input disabled class="weui-input" bindinput="formInputChange" data-field="duplicates"
+                            value="{{app.duplicates}}"  />
                     </view>
                 </mp-cell>
                 <mp-cell prop="editions" title="版数" ext-class="table-form-cell">
                     <view class="weui-cell weui-cell_select label-right">
-                        <input disabled="{{disabled}}" class="weui-input" bindinput="formInputChange" data-field="editions"
-                            value="{{app.editions}}" placeholder="版数" />
+                        <input disabled class="weui-input" bindinput="formInputChange" data-field="editions"
+                            value="{{app.editions}}" />
                     </view>
                 </mp-cell>
                 <mp-cell prop="papers" title="纸张数" ext-class="table-form-cell">
                     <view class="weui-cell weui-cell_select label-right">
-                        <input disabled="{{disabled}}" class="weui-input" bindinput="formInputChange" data-field="papers"
-                            value="{{app.papers}}" placeholder="纸张数" />
+                        <input disabled class="weui-input" bindinput="formInputChange" data-field="papers"
+                            value="{{app.papers}}" />
                     </view>
                 </mp-cell>
-                <mp-cell wx:if="{{!disabled}}" prop="enclosure" title="附件类型" ext-class="table-form-cell">
+                <mp-cell wx:if="{{pageType == 'add'}}" prop="enclosure" title="附件类型" ext-class="table-form-cell">
                     <view class="weui-cell weui-cell_select label-right">
                         <radio-group bindchange="enclosureRadioChange">
                             <label class="weui-cell weui-check__label" wx:for="{{enclosureitems}}" wx:key="value">
@@ -146,7 +146,7 @@
                         <image class="work-link" src="../../image/work/link.jpg"></image>
                     </view>
                 </mp-cell>
-                <mp-cell wx:if='{{disabled}}' prop="opinionInput" title="审批意见" ext-class="table-form-cell">
+                <mp-cell wx:if="{{pageType == 'apply'}}" prop="opinionInput" title="审批意见" ext-class="table-form-cell">
                     <view class="weui-cell weui-cell_select label-right">
                         <radio-group bindchange="opinionRadioChange">
                             <label class="weui-cell weui-check__label" wx:for="{{opinionitems}}" wx:key="value">
@@ -171,7 +171,7 @@
             </mp-cells>
         </mp-form>
         <view class="text-center mt20">
-            <button class="mini-btn btn-blue mr20" size="mini" bindtap="submitForm">确定</button>
+            <button wx:if="{{pageType != 'end'}}" class="mini-btn btn-blue mr20" size="mini" bindtap="submitForm">确定</button>
             <button class="mini-btn btn-yellow" size="mini" bindtap="back">关闭</button>
         </view>
     </view>
